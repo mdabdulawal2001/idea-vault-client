@@ -1,12 +1,17 @@
-import React from 'react';
+import IdeasAllCards from "@/components/Ideas/IdeasAllCards";
+
+export const metadata = {
+  title: "Explore Ideas | IdeaVault",
+  description:
+    "Discover innovative startup ideas shared by the IdeaVault community.",
+};
 
 const IdeasPage = () => {
-    return (
-        <div>
-            <h1>Ideas Page</h1>
-            <p>Explore and share innovative ideas here.</p>
-        </div>
-    );
+  return (
+    <main>
+      <IdeasAllCards />
+    </main>
+  );
 };
 
 export default IdeasPage;

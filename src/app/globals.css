@@ -18,3 +18,8 @@ body {
   background: #020617;
   color: #f8fafc;
 }
+
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
