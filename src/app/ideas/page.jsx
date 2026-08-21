@@ -1,7 +1,7 @@
 import IdeasAllCards from "@/components/Ideas/IdeasAllCards";
 
 export const metadata = {
-  title: "Explore Ideas | IdeaVault",
+  title: "IdeaVault | Explore Ideas",
   description:
     "Discover innovative startup ideas shared by the IdeaVault community.",
 };
