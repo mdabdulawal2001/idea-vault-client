@@ -114,7 +114,7 @@ const IdeasAllCards = () => {
             {[1, 2, 3].map((item) => (
               <div
                 key={item}
-                className="h-[500px] animate-pulse rounded-2xl bg-slate-200 dark:bg-slate-800"
+                className="h-125 animate-pulse rounded-2xl bg-slate-200 dark:bg-slate-800"
               />
             ))}
           </div>
