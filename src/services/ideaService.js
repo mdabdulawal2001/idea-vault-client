@@ -70,3 +70,17 @@ export const getIdeaById = async (id) => {
 
   return data;
 };
+
+
+// get trending ideas
+export const getTrendingIdeas = async () => {
+  const res = await fetch(`${API_URL}/trending`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch trending ideas");
+  }
+
+  const data = await res.json();
+
+  return data;
+};

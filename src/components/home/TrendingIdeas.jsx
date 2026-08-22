@@ -4,80 +4,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import TrendingIdeaCard from "./TrendingIdeaCard";
+import { getTrendingIdeas } from "@/services/ideaService";
 
-const trendingIdeas = [
-  {
-    id: "1",
-    title: "AI Learning Companion",
-    description:
-      "A personalized AI-powered learning assistant that helps students understand difficult topics through interactive explanations.",
-    category: "AI & Education",
-    audience: "Students",
-    budget: "$15K – $30K",
-    image:
-      "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=1200&q=80",
-  },
-
-  {
-    id: "2",
-    title: "Smart Waste Management",
-    description:
-      "An intelligent waste management platform designed to optimize waste collection and reduce environmental impact.",
-    category: "Environment",
-    audience: "Urban Communities",
-    budget: "$10K – $25K",
-    image:
-      "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1200&q=80",
-  },
-
-  {
-    id: "3",
-    title: "Remote Health Monitor",
-    description:
-      "A digital healthcare solution that allows patients to monitor essential health information and share updates remotely.",
-    category: "Healthcare",
-    audience: "Patients & Clinics",
-    budget: "$20K – $40K",
-    image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
-  },
-
-  {
-    id: "4",
-    title: "Local Creator Marketplace",
-    description:
-      "A platform connecting local creators with businesses looking for authentic digital content and creative services.",
-    category: "Business",
-    audience: "Creators & Brands",
-    budget: "$8K – $20K",
-    image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80",
-  },
-
-  {
-    id: "5",
-    title: "Skill Exchange Network",
-    description:
-      "A community-driven platform where people can exchange practical skills and knowledge with one another.",
-    category: "Community",
-    audience: "Professionals",
-    budget: "$5K – $15K",
-    image:
-      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80",
-  },
-
-  {
-    id: "6",
-    title: "Green Delivery Network",
-    description:
-      "A sustainable delivery concept combining smart route optimization with eco-friendly transportation.",
-    category: "Technology",
-    audience: "Small Businesses",
-    budget: "$25K – $50K",
-    image:
-      "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1200&q=80",
-  },
-];
+const trendingIdeas = await getTrendingIdeas();
 
 const TrendingIdeas = () => {
   return (
@@ -112,7 +41,7 @@ const TrendingIdeas = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {trendingIdeas.map((idea, index) => (
             <motion.div
-              key={idea.id}
+              key={idea._id}
               initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}

@@ -22,8 +22,8 @@ const IdeaCard = ({ idea, index = 0 }) => {
       {/* ================= IMAGE ================= */}
       <div className="relative h-48 w-full overflow-hidden">
   <Image
-    src={idea.imageURL}
-    alt={idea.title}
+    src={idea?.imageURL}
+    alt={idea?.title}
     fill
     className="object-cover transition-transform duration-700 group-hover:scale-105"
     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -34,7 +34,7 @@ const IdeaCard = ({ idea, index = 0 }) => {
 
   {/* Category */}
   <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-bold text-blue-600 shadow-sm backdrop-blur-md dark:bg-slate-900/90 dark:text-cyan-400">
-    {idea.category}
+    {idea?.category}
   </span>
 
   {/* Top Right Arrow */}
