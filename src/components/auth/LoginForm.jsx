@@ -13,6 +13,7 @@ import { LockKeyhole, LogIn, Mail } from "lucide-react";
 import GoogleLoginButton from "./GoogleLoginButton";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const router = useRouter();

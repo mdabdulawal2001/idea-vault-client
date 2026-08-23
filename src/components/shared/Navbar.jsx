@@ -6,10 +6,13 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-
 import { Avatar } from "@heroui/react";
+import { LogOut, UserRound } from "lucide-react";
 
 import logo from "@/assets/logo.png";
+import { authClient } from "@/lib/auth-client";
+import NavbarSessionSpinner from "./NavbarSessionSpinner";
+import UserAvatar from "./UserAvatar";
 
 const navLinks = [
   {
@@ -42,9 +45,12 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  // Temporary authentication state.
-  // Better Auth implement করার পর এখানে session ব্যবহার হবে।
-  const isLoggedIn = false;
+  // ================= AUTH =================
+
+  const { data: session, isPending } = authClient.useSession();
+
+  const user = session?.user;
+  // ================= THEME =================
 
   const currentTheme = theme === "system" ? resolvedTheme : theme;
 
@@ -53,6 +59,8 @@ const Navbar = () => {
   const toggleTheme = () => {
     setTheme(isDark ? "light" : "dark");
   };
+
+  // ================= NAVIGATION =================
 
   const isActive = (href) => {
     if (href === "/") {
@@ -66,8 +74,17 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  // ================= USER INFO =================
+
+  const userName = user?.name?.trim() || "User";
+
+  const userImage = user?.image || null;
+
+  const userInitial = userName.charAt(0).toUpperCase();
+ 
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 shadow-sm backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90 mx-auto">
+    <header className="sticky top-0 z-50 mx-auto border-b border-slate-200/70 bg-white/90 shadow-sm backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90">
       <nav className="mx-auto flex min-h-19 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
 
         {/* ================= LOGO ================= */}
@@ -139,49 +156,51 @@ const Navbar = () => {
           {/* Theme Toggle */}
 
           <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition-all duration-300 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
-            >
-              {isDark ? (
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <circle cx="12" cy="12" r="4" strokeWidth="2" />
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition-all duration-300 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
+          >
+            {isDark ? (
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="12" cy="12" r="4" strokeWidth="2" />
 
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
-                  />
-                </svg>
-              )}
+                <path
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                />
+              </svg>
+            )}
           </button>
 
-          {/* ================= LOGGED OUT ================= */}
+          {/* ================= SESSION LOADING ================= */}
 
-          {!isLoggedIn ? (
+          {isPending ? (
+            <NavbarSessionSpinner />
+          ) : !user ? (
+            /* ================= LOGGED OUT ================= */
+
             <div className="ml-1 flex items-center gap-2">
-
-              {/* Login */}
 
               <Link
                 href="/login"
@@ -190,15 +209,12 @@ const Navbar = () => {
                 Login
               </Link>
 
-              {/* Register */}
-
               <Link
                 href="/register"
                 className="rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-blue-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/30"
               >
                 Register
               </Link>
-
             </div>
           ) : (
 
@@ -213,15 +229,12 @@ const Navbar = () => {
                 }
                 className="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 transition-all duration-300 hover:border-blue-300 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-cyan-500"
               >
-                <Avatar
-                  src="/avatar.png"
-                  name="User"
-                  size="sm"
-                  className="bg-linear-to-br from-cyan-400 to-blue-600 text-white"
-                />
+                {/* USER AVATAR */}
 
+                <UserAvatar user={user} size="sm" />
+                
                 <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                  Profile
+                  {userName}
                 </span>
 
                 <svg
@@ -240,6 +253,8 @@ const Navbar = () => {
                   />
                 </svg>
               </button>
+
+              {/* PROFILE DROPDOWN */}
 
               <AnimatePresence>
                 {isProfileOpen && (
@@ -264,22 +279,30 @@ const Navbar = () => {
                     }}
                     className="absolute right-0 mt-3 w-56 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-xl dark:border-slate-700 dark:bg-slate-900"
                   >
+
+                    {/* Profile */}
+
                     <Link
                       href="/profile"
                       onClick={() => setIsProfileOpen(false)}
                       className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
                     >
-                      <span>👤</span>
+                      <UserRound className="h-4 w-4" />
+
                       Profile Management
                     </Link>
+
+                    {/* Logout */}
 
                     <button
                       type="button"
                       className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium text-red-500 transition hover:bg-red-50 dark:hover:bg-red-950/30"
                     >
-                      <span>↪</span>
+                      <LogOut className="h-4 w-4" />
+
                       Logout
                     </button>
+
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -294,41 +317,41 @@ const Navbar = () => {
           {/* Mobile Theme Toggle */}
 
           <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
-            >
-              {isDark ? (
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <circle cx="12" cy="12" r="4" strokeWidth="2" />
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+          >
+            {isDark ? (
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="12" cy="12" r="4" strokeWidth="2" />
 
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
-                  />
-                </svg>
-              )}
+                <path
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                />
+              </svg>
+            )}
           </button>
 
           {/* Mobile Menu Button */}
@@ -394,9 +417,50 @@ const Navbar = () => {
             }}
             className="overflow-hidden border-t border-slate-200/70 bg-white dark:border-slate-800 dark:bg-slate-950 xl:hidden"
           >
-            <div className="mx-auto max-w-7xl space-y-2 px-4 py-5 sm:px-6">
+            <div className="navbar-mobile-scroll mx-auto max-h-[calc(100vh-76px)] max-w-7xl space-y-2 overflow-y-auto px-4 py-5 sm:px-6">
 
-              {/* Mobile Links */}
+              {/* ================= MOBILE PROFILE ================= */}
+
+              {isPending ? (
+                <div className="flex justify-center py-3">
+                  <NavbarSessionSpinner />
+                </div>
+              ) : user ? (
+                <>
+                  {/* Profile Info */}
+
+                  <div className="flex flex-col items-center pb-3 pt-1">
+
+                    <UserAvatar user={user} size="lg" />
+
+                    <p className="mt-3 text-base font-bold text-slate-900 dark:text-white">
+                      {userName}
+                    </p>
+
+                    {user.email && (
+                      <p className="mt-0.5 max-w-full truncate text-xs text-slate-500 dark:text-slate-400">
+                        {user.email}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Profile Management */}
+
+                  <Link
+                    href="/profile"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition-all hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
+                  >
+                    <UserRound className="h-4 w-4" />
+
+                    Profile Management
+                  </Link>
+
+                  <div className="my-3 h-px bg-slate-200 dark:bg-slate-800" />
+                </>
+              ) : null}
+
+              {/* ================= MOBILE LINKS ================= */}
 
               {navLinks.map((link) => {
                 const active = isActive(link.href);
@@ -423,10 +487,16 @@ const Navbar = () => {
 
               <div className="my-3 h-px bg-slate-200 dark:bg-slate-800" />
 
-              {/* Mobile Auth */}
+              {/* ================= MOBILE AUTH ================= */}
 
-              {!isLoggedIn ? (
-                <div className="flex flex-col w-full gap-2">
+              {isPending ? (
+                <div className="flex justify-center py-2">
+                  <NavbarSessionSpinner />
+                </div>
+              ) : !user ? (
+                /* ================= LOGGED OUT ================= */
+
+                <div className="flex w-full flex-col gap-2">
 
                   <Link
                     href="/login"
@@ -446,31 +516,16 @@ const Navbar = () => {
 
                 </div>
               ) : (
-                <div className="space-y-2">
+                /* ================= LOGGED IN ================= */
 
-                  <Link
-                    href="/profile"
-                    onClick={closeMobileMenu}
-                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
-                  >
-                    <Avatar
-                      src="/avatar.png"
-                      name="User"
-                      size="sm"
-                    />
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-red-500 transition hover:bg-red-50 dark:hover:bg-red-950/30"
+                >
+                  <LogOut className="h-4 w-4" />
 
-                    Profile Management
-                  </Link>
-
-                  <button
-                    type="button"
-                    className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30"
-                  >
-                    <span>↪</span>
-                    Logout
-                  </button>
-
-                </div>
+                  Logout
+                </button>
               )}
             </div>
           </motion.div>
