@@ -11,15 +11,29 @@ import {
 } from "@heroui/react";
 import { LockKeyhole, LogIn, Mail } from "lucide-react";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-  const handleSubmit = (event) => {
+  const router = useRouter();
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const data = Object.fromEntries(new FormData(event.currentTarget));
+    const user = Object.fromEntries(new FormData(event.currentTarget));
+    const { email, password } = user;
 
-    console.log("Login Data:", data);
-
+    const {data, error} = await authClient.signIn.email({
+      email,
+      password,
+    })
+    if(data){
+      toast.success("Login successful!");
+      router.push("/");
+    }
+    if(error){
+      toast.error(error.message || "An error occurred during login.");
+      return;
+    }
     // Better Auth login logic will be added here later
   };
 
