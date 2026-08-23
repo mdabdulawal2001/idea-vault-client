@@ -21,9 +21,12 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const RegisterForm = () => {
-
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -32,21 +35,42 @@ const RegisterForm = () => {
     const user = Object.fromEntries(new FormData(e.currentTarget));
     const { email, name, password, image } = user;
 
-    const {data, error} = await authClient.signUp.email({
-      email,
-      name,
-      password,
-      image
-    })
-    if(data){
-      toast.success("Account created successfully!");
-      router.push("/login");
+    // Loading toast
+    const loadingToast = toast.loading("Creating account...");
+
+    try {
+      const { data, error } = await authClient.signUp.email({
+        email,
+        name,
+        password,
+        image,
+        autoSignIn: false,
+      });
+
+      console.log({ data, error });
+
+      // Remove loading toast
+      toast.dismiss(loadingToast);
+
+      // Error handling
+      if (error) {
+        toast.error(error.message || "Registration failed ❌");
+        return;
+      }
+
+      // Success
+      if (data) {
+        toast.success("Account created successfully! 🎉");
+        router.push("/login");
+      }
+    } catch (err) {
+      // Remove loading toast
+      toast.dismiss(loadingToast);
+
+      console.error(err);
+
+      toast.error("Something went wrong ❌");
     }
-    if(error){
-      toast.error(error.message || "An error occurred during registration.");
-      return;
-    }
-    // Better Auth registration functionality will be added later.
   };
 
   return (
@@ -54,7 +78,7 @@ const RegisterForm = () => {
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease: "easeOut" }}
-      className="mx-auto my-10 w-full max-w-lg px-4 sm:my-14 sm:px-6"
+      className="mx-auto my-10 w-full md:w-[60%] max-w-lg px-4 sm:my-14 sm:px-6"
     >
       {/* ================= FORM CARD ================= */}
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-blue-500/5 sm:p-8 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none">
@@ -80,7 +104,7 @@ const RegisterForm = () => {
 
         {/* ================= REGISTER FORM ================= */}
         <Form
-          className="flex w-full flex-col gap-5"
+          className="flex max-w-7xl mx-auto w-full flex-col gap-5"
           onSubmit={handleSubmit}
         >
           {/* ================= FULL NAME ================= */}
@@ -126,9 +150,7 @@ const RegisterForm = () => {
                 return "Email is required";
               }
 
-              if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-              ) {
+              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                 return "Please enter a valid email address";
               }
 
@@ -218,15 +240,25 @@ const RegisterForm = () => {
               Password
             </Label>
 
+            {/* Input + Eye Button */}
             <div className="relative mt-1.5">
               <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
               <Input
                 name="password"
-                type="password"
-                className="w-full pl-10"
+                type={isShowPassword ? "text" : "password"}
+                className="w-full pl-10 pr-10"
                 placeholder="Create a strong password"
               />
+
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 z-10 flex h-5 w-5 -translate-y-1/2 cursor-pointer items-center justify-center text-slate-500 transition-colors hover:text-slate-700 dark:hover:text-slate-200"
+                onClick={() => setIsShowPassword(!isShowPassword)}
+                aria-label={isShowPassword ? "Hide password" : "Show password"}
+              >
+                {isShowPassword ? <FaEye /> : <FaEyeSlash />}
+              </button>
             </div>
 
             <FieldError />
@@ -242,7 +274,10 @@ const RegisterForm = () => {
                 return "Please confirm your password";
               }
 
-              const passwordInput = document.querySelector('input[name="password"]');
+              const passwordInput = document.querySelector(
+                'input[name="password"]',
+              );
+
               const password = passwordInput ? passwordInput.value : "";
 
               if (password && value !== password) {
@@ -256,15 +291,29 @@ const RegisterForm = () => {
               Confirm Password
             </Label>
 
+            {/* Input + Eye Button */}
             <div className="relative mt-1.5">
               <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
               <Input
                 name="confirmPassword"
-                type="password"
-                className="w-full pl-10"
+                type={isShowConfirmPassword ? "text" : "password"}
+                className="w-full pl-10 pr-10"
                 placeholder="Confirm your password"
               />
+
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 z-10 flex h-5 w-5 -translate-y-1/2 cursor-pointer items-center justify-center text-slate-500 transition-colors hover:text-slate-700 dark:hover:text-slate-200"
+                onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
+                aria-label={
+                  isShowConfirmPassword
+                    ? "Hide confirm password"
+                    : "Show confirm password"
+                }
+              >
+                {isShowConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+              </button>
             </div>
 
             <FieldError />

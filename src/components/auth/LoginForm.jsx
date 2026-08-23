@@ -14,28 +14,53 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginForm = () => {
+   const [isShowPassword, setIsShowPassword] = useState(false);
   const router = useRouter();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const user = Object.fromEntries(new FormData(event.currentTarget));
     const { email, password } = user;
 
-    const {data, error} = await authClient.signIn.email({
-      email,
-      password,
-    })
-    if(data){
-      toast.success("Login successful!");
-      router.push("/");
+    // Loading toast
+    const loadingToast = toast.loading("Logging in...");
+
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email,
+        password,
+        callbackURL: "/",
+      });
+
+      console.log({ data, error });
+
+      // Remove loading toast
+      toast.dismiss(loadingToast);
+
+      // Error handling
+      if (error) {
+        toast.error(error.message || "Login failed ❌");
+        return;
+      }
+
+      // Success
+      if (data) {
+        toast.success("Login successful! 🎉");
+        router.push("/");
+      }
+    } catch (err) {
+      // Remove loading toast
+      toast.dismiss(loadingToast);
+
+      console.error(err);
+
+      toast.error("Something went wrong ❌");
     }
-    if(error){
-      toast.error(error.message || "An error occurred during login.");
-      return;
-    }
-    // Better Auth login logic will be added here later
   };
 
   return (
@@ -87,10 +112,7 @@ const LoginForm = () => {
           </div>
 
           {/* Login Form */}
-          <Form
-            className="flex w-full flex-col gap-5"
-            onSubmit={handleSubmit}
-          >
+          <Form className="flex w-full flex-col gap-5" onSubmit={handleSubmit}>
             {/* Email */}
             <TextField
               isRequired
@@ -101,9 +123,7 @@ const LoginForm = () => {
                   return "Email is required";
                 }
 
-                if (
-                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-                ) {
+                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                   return "Please enter a valid email address";
                 }
 
@@ -117,10 +137,7 @@ const LoginForm = () => {
               <div className="relative mt-1.5">
                 <Mail className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
-                <Input
-                  className="w-full pl-10"
-                  placeholder="you@example.com"
-                />
+                <Input className="w-full pl-10" placeholder="you@example.com" />
               </div>
 
               <FieldError />
@@ -130,7 +147,7 @@ const LoginForm = () => {
             <TextField
               isRequired
               name="password"
-              type="password"
+              type={`${isShowPassword ? "text" : "password"}`}
               validate={(value) => {
                 if (!value) {
                   return "Password is required";
@@ -157,6 +174,12 @@ const LoginForm = () => {
               </div>
 
               <FieldError />
+              <span
+                  className="cursor-pointer absolute right-3 top-74 md:top-73.75"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                >
+                  {isShowPassword ? <FaEye></FaEye> : <FaEyeSlash />}
+                </span>
             </TextField>
 
             {/* Forgot Password */}
