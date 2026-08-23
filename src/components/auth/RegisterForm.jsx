@@ -18,15 +18,34 @@ import {
   Button,
 } from "@heroui/react";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
-  const handleSubmit = (e) => {
+
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = Object.fromEntries(new FormData(e.currentTarget));
+    const user = Object.fromEntries(new FormData(e.currentTarget));
+    const { email, name, password, image } = user;
 
-    console.log("Register Data:", data);
-
+    const {data, error} = await authClient.signUp.email({
+      email,
+      name,
+      password,
+      image
+    })
+    if(data){
+      toast.success("Account created successfully!");
+      router.push("/login");
+    }
+    if(error){
+      toast.error(error.message || "An error occurred during registration.");
+      return;
+    }
     // Better Auth registration functionality will be added later.
   };
 
@@ -127,7 +146,7 @@ const RegisterForm = () => {
                 name="email"
                 type="email"
                 className="w-full pl-10"
-                placeholder="you@example.com"
+                placeholder="Enter Your Email Address"
               />
             </div>
 
@@ -218,12 +237,13 @@ const RegisterForm = () => {
             isRequired
             name="confirmPassword"
             type="password"
-            validate={(value, form) => {
+            validate={(value) => {
               if (!value) {
                 return "Please confirm your password";
               }
 
-              const password = form?.password;
+              const passwordInput = document.querySelector('input[name="password"]');
+              const password = passwordInput ? passwordInput.value : "";
 
               if (password && value !== password) {
                 return "Passwords do not match";
