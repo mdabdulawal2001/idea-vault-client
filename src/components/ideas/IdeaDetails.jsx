@@ -14,7 +14,7 @@ import {
   Users,
 } from "lucide-react";
 
-import CommentForm from "./CommentForm";
+import CommentSection from "./CommentSection";
 
 const IdeaDetails = ({ idea }) => {
   const formatDate = (date) =>
@@ -287,7 +287,7 @@ const IdeaDetails = ({ idea }) => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mt-10 w-full"
         >
-          <CommentForm />
+          <CommentSection idea={idea} />
         </motion.section>
       </section>
     </main>

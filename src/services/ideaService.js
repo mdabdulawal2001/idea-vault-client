@@ -144,3 +144,43 @@ export const deleteIdea = async (id) => {
 
   return await res.json();
 };
+
+
+// comments functionality
+
+export const createComment = async (commentData) => {
+  const res = await fetch(`${API_URL}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(commentData),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(
+      errorData.message || "Failed to post comment"
+    );
+  }
+
+  return await res.json();
+};
+
+
+export const getCommentsByIdea = async (ideaId) => {
+  const res = await fetch(
+    `${API_URL}/comments/idea/${ideaId}`
+  );
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(
+      errorData.message || "Failed to fetch comments"
+    );
+  }
+
+  return await res.json();
+};

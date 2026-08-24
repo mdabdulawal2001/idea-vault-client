@@ -34,13 +34,11 @@ const MyInteractions = () => {
   return (
     <section className="min-h-screen bg-slate-50 py-12 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-
         {/* ==================================================
             PAGE HEADER
         ================================================== */}
         <div className="mb-10">
           <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-end sm:justify-between">
-
             {/* Heading */}
             <div>
               <div className="mb-3 flex items-center justify-center md:justify-start gap-2">
@@ -58,8 +56,7 @@ const MyInteractions = () => {
               </h1>
 
               <p className="mt-3 max-w-2xl text-center md:text-left text-sm leading-6 text-slate-600 dark:text-slate-400">
-                View and manage the comments you have shared on community
-                ideas.
+                View and manage the comments you have shared on community ideas.
               </p>
             </div>
 
@@ -71,9 +68,7 @@ const MyInteractions = () => {
                 </div>
 
                 <div>
-                  <p className="text-xs text-slate-400">
-                    Total Comments
-                  </p>
+                  <p className="text-xs text-slate-400">Total Comments</p>
 
                   <p className="text-lg text-center font-extrabold text-slate-900 dark:text-white">
                     {dummyComments.length}
@@ -88,7 +83,6 @@ const MyInteractions = () => {
             COMMENTS CONTAINER
         ================================================== */}
         <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
-
           {/* Container Header */}
           <div className="mb-6 flex items-center justify-between border-b border-slate-100 pb-5 dark:border-slate-800">
             <div>
