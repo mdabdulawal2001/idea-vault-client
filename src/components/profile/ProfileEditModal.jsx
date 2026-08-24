@@ -11,20 +11,9 @@ import {
   FieldError,
 } from "@heroui/react";
 
-import {
-  UserRound,
-  Mail,
-  FileText,
-  Image as ImageIcon,
-  X,
-} from "lucide-react";
+import { UserRound, Mail, FileText, Image as ImageIcon, X } from "lucide-react";
 
-const ProfileEditModal = ({
-  isOpen,
-  onOpenChange,
-  user,
-  onSubmit,
-}) => {
+const ProfileEditModal = ({ isOpen, onOpenChange, user, onSubmit }) => {
   const dialogRef = useRef(null);
 
   useEffect(() => {
@@ -48,9 +37,7 @@ const ProfileEditModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = Object.fromEntries(
-      new FormData(e.currentTarget)
-    );
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
 
     onSubmit?.(formData);
   };
@@ -59,7 +46,12 @@ const ProfileEditModal = ({
     <dialog
       ref={dialogRef}
       onCancel={handleClose}
-      className="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/50 dark:border-slate-800 dark:bg-slate-900 dark:backdrop:bg-slate-950/70"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          handleClose();
+        }
+      }}
+      className="m-auto w-[92%] max-w-xl rounded-2xl border border-slate-200/80 bg-white p-0 shadow-2xl shadow-slate-900/10 backdrop:bg-slate-950/40 dark:border-slate-700/80 dark:bg-slate-900! dark:shadow-black/40 dark:backdrop:bg-slate-950/70"
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-slate-200 px-5 py-5 dark:border-slate-800 sm:px-6">
@@ -135,9 +127,7 @@ const ProfileEditModal = ({
             validate={(value) => {
               if (!value) return "Email is required";
 
-              if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-              ) {
+              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                 return "Please enter a valid email address";
               }
 
@@ -163,10 +153,7 @@ const ProfileEditModal = ({
           </TextField>
 
           {/* Image */}
-          <TextField
-            name="image"
-            defaultValue={user?.image || ""}
-          >
+          <TextField name="image" defaultValue={user?.image || ""}>
             <Label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
               Profile Image URL
             </Label>
@@ -186,10 +173,7 @@ const ProfileEditModal = ({
           </TextField>
 
           {/* Bio */}
-          <TextField
-            name="bio"
-            defaultValue={user?.bio || ""}
-          >
+          <TextField name="bio" defaultValue={user?.bio || ""}>
             <Label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
               Bio
             </Label>

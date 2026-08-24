@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Avatar } from "@heroui/react";
 import { LogOut, UserRound } from "lucide-react";
 
@@ -14,6 +14,7 @@ import { authClient } from "@/lib/auth-client";
 import NavbarSessionSpinner from "./NavbarSessionSpinner";
 import UserAvatar from "./UserAvatar";
 import toast from "react-hot-toast";
+import ThemeToggleIcon from "./ThemeToggleIcon";
 
 const navLinks = [
   {
@@ -42,6 +43,11 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const { theme, setTheme, resolvedTheme } = useTheme();
+  const mounted = useSyncExternalStore(
+  () => () => {},
+  () => true,
+  () => false
+);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -161,36 +167,7 @@ const Navbar = () => {
             aria-label="Toggle theme"
             className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition-all duration-300 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:bg-slate-800 dark:hover:text-cyan-400"
           >
-            {isDark ? (
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <circle cx="12" cy="12" r="4" strokeWidth="2" />
-
-                <path
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
-                />
-              </svg>
-            )}
+            <ThemeToggleIcon isDark={isDark} mounted={mounted} />
           </button>
 
           {/* ================= SESSION LOADING ================= */}
@@ -313,36 +290,7 @@ const Navbar = () => {
             aria-label="Toggle theme"
             className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
           >
-            {isDark ? (
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <circle cx="12" cy="12" r="4" strokeWidth="2" />
-
-                <path
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
-                />
-              </svg>
-            )}
+            <ThemeToggleIcon isDark={isDark} mounted={mounted} />
           </button>
 
           {/* Mobile Menu Button */}
