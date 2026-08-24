@@ -1,21 +1,63 @@
 "use client";
 
+import { useState } from "react";
 import { Lightbulb } from "lucide-react";
-import MyIdeaCard from "./MyIdeaCard";
 
-const MyIdeaGrid = ({ ideas = [], onEdit, onDelete }) => {
+import MyIdeaCard from "./MyIdeaCard";
+import EditIdeaModal from "./EditIdeaModal";
+
+const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
+  const [ideas, setIdeas] = useState(initialIdeas);
+
+  const [selectedIdea, setSelectedIdea] = useState(null);
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  // ==========================================
+  // OPEN EDIT MODAL
+  // ==========================================
+
+  const handleEdit = (idea) => {
+    setSelectedIdea(idea);
+    setIsEditModalOpen(true);
+  };
+
+  // ==========================================
+  // CLOSE EDIT MODAL
+  // ==========================================
+
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedIdea(null);
+  };
+
+  // ==========================================
+  // UPDATE IDEA IN UI
+  // ==========================================
+
+  const handleIdeaUpdated = (updatedIdea) => {
+    setIdeas((prevIdeas) =>
+      prevIdeas.map((idea) =>
+        String(idea._id) === String(updatedIdea._id)
+          ? {
+              ...idea,
+              ...updatedIdea,
+            }
+          : idea,
+      ),
+    );
+  };
+
   return (
-    <section className="w-full">
+    <section className="mx-auto w-[90%] md:w-full">
       {/* ================= SECTION HEADER ================= */}
 
       <div className="mb-7 sm:mb-8">
         <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left">
-          {/* Icon */}
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-500/10">
-            <Lightbulb className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          <div className="my-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-500/10">
+            <Lightbulb className="w-14 h-14  text-blue-600 dark:text-blue-400" />
           </div>
 
-          {/* Text */}
           <div className="mt-3 sm:ml-3 sm:mt-0">
             <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-2xl">
               My Ideas
@@ -49,17 +91,29 @@ const MyIdeaGrid = ({ ideas = [], onEdit, onDelete }) => {
       ) : (
         /* ================= IDEA GRID ================= */
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {ideas.map((idea, index) => (
             <MyIdeaCard
               key={idea._id}
               idea={idea}
               index={index}
-              onEdit={onEdit}
+              onEdit={handleEdit}
               onDelete={onDelete}
             />
           ))}
         </div>
+      )}
+
+      {/* ================= EDIT MODAL ================= */}
+
+      {selectedIdea && (
+        <EditIdeaModal
+          key={selectedIdea._id}
+          idea={selectedIdea}
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          onUpdated={handleIdeaUpdated}
+        />
       )}
     </section>
   );

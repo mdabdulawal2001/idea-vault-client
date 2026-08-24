@@ -11,14 +11,55 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import ProfileEditModal from "./ProfileEditModal";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+
 
 const ProfileCard = ({ user, onEdit }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
+  const router = useRouter();
   const handleProfileUpdate = async (formData) => {
-    console.log(formData);
+    try {
+      const name = formData.name?.trim();
+      const image = formData.image?.trim();
 
-    // পরে Better Auth update
+      // Basic validation
+      if (!name) {
+        toast.error("Name is required");
+        return;
+      }
+
+      if (name.length < 2) {
+        toast.error("Name must be at least 2 characters");
+        return;
+      }
+
+      const { data, error } = await authClient.updateUser({
+        name,
+        image: image || null,
+      });
+
+      if (error) {
+        console.error("Profile update error:", error);
+        toast.error(error.message || "Failed to update profile");
+        return;
+      }
+
+      console.log("Updated user:", data);
+
+      toast.success("Profile updated successfully");
+
+      // Close modal
+      setIsEditOpen(false);
+
+      // Refresh server component data
+      router.refresh();
+    } catch (error) {
+      console.error("Profile update error:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   const firstLetter = user?.name?.charAt(0)?.toUpperCase() || "U";

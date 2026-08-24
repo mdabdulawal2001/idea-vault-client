@@ -109,7 +109,6 @@ const ProfileEditModal = ({ isOpen, onOpenChange, user, onSubmit }) => {
               <UserRound className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
               <Input
-                name="name"
                 placeholder="Enter your name"
                 className="w-full pl-10"
               />
@@ -119,7 +118,7 @@ const ProfileEditModal = ({ isOpen, onOpenChange, user, onSubmit }) => {
           </TextField>
 
           {/* Email */}
-          <TextField
+          {/* <TextField
             name="email"
             type="email"
             defaultValue={user?.email || ""}
@@ -150,7 +149,7 @@ const ProfileEditModal = ({ isOpen, onOpenChange, user, onSubmit }) => {
             </div>
 
             <FieldError />
-          </TextField>
+          </TextField> */}
 
           {/* Image */}
           <TextField name="image" defaultValue={user?.image || ""}>
@@ -173,23 +172,7 @@ const ProfileEditModal = ({ isOpen, onOpenChange, user, onSubmit }) => {
           </TextField>
 
           {/* Bio */}
-          <TextField name="bio" defaultValue={user?.bio || ""}>
-            <Label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-              Bio
-            </Label>
-
-            <div className="relative mt-1.5">
-              <FileText className="pointer-events-none absolute left-3 top-3 z-10 h-4 w-4 text-slate-400" />
-
-              <TextArea
-                name="bio"
-                placeholder="Tell something about yourself..."
-                className="min-h-28 w-full pl-10"
-              />
-            </div>
-
-            <FieldError />
-          </TextField>
+          
         </div>
 
         {/* Actions */}

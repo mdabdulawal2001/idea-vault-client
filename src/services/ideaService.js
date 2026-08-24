@@ -23,6 +23,10 @@ export const getAllIdeas = async (filters = {}) => {
   if (filters.toDate) {
     params.append("toDate", filters.toDate);
   }
+    // Author
+  if (filters.authorId) {
+    params.append("authorId", filters.authorId);
+  }
 
   const queryString = params.toString();
 
@@ -83,4 +87,42 @@ export const getTrendingIdeas = async () => {
   const data = await res.json();
 
   return data;
+};
+
+
+// create ideas
+export const createIdea = async (ideaData) => {
+  const res = await fetch(`${API_URL}/ideas`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(ideaData),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(errorData.message || "Failed to create idea");
+  }
+
+  return await res.json();
+};
+
+export const updateIdea = async (id, ideaData) => {
+  const res = await fetch(`${API_URL}/ideas/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(ideaData),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(errorData.message || "Failed to update idea");
+  }
+
+  return await res.json();
 };

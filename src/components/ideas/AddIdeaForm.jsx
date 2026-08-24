@@ -11,6 +11,8 @@ import {
   RotateCcw,
   ChevronDown,
 } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { createIdea } from "@/services/ideaService";
 
 const categories = [
   "Tech",
@@ -44,6 +46,10 @@ const AddIdeaForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { data: session, isPending: isSessionPending } =
+    authClient.useSession();
+
+  const user = session?.user;
   // ==========================================
   // HANDLE INPUT CHANGE
   // ==========================================
@@ -86,65 +92,57 @@ const AddIdeaForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      console.log("User is not logged in");
+      return;
+    }
+
     setIsSubmitting(true);
 
-    const finalCategory =
-      formData.category === "Other"
-        ? formData.customCategory.trim()
-        : formData.category;
+    try {
+      const finalCategory =
+        formData.category === "Other"
+          ? formData.customCategory.trim()
+          : formData.category;
 
-    // Convert comma separated tags into array
-    const tagsArray = formData.tags
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter(Boolean);
+      const tagsArray = formData.tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean);
 
-    // ========================================
-    // DATA READY FOR BACKEND
-    // ========================================
+      const ideaData = {
+        title: formData.title.trim(),
+        shortDescription: formData.shortDescription.trim(),
+        detailedDescription: formData.detailedDescription.trim(),
+        category: finalCategory,
+        tags: tagsArray,
+        imageURL: formData.imageURL.trim(),
 
-    const ideaData = {
-      title: formData.title.trim(),
+        estimatedBudget:
+          formData.estimatedBudget === ""
+            ? null
+            : Number(formData.estimatedBudget),
 
-      shortDescription: formData.shortDescription.trim(),
+        targetAudience: formData.targetAudience.trim(),
+        problemStatement: formData.problemStatement.trim(),
+        proposedSolution: formData.proposedSolution.trim(),
 
-      detailedDescription: formData.detailedDescription.trim(),
+        authorId: user.id,
+        authorName: user.name,
+        authorPhoto: user.image || "",
+      };
 
-      category: finalCategory,
+      const result = await createIdea(ideaData);
 
-      tags: tagsArray,
+      console.log("Idea created:", result);
 
-      imageURL: formData.imageURL.trim(),
-
-      estimatedBudget:
-        formData.estimatedBudget === ""
-          ? null
-          : Number(formData.estimatedBudget),
-
-      targetAudience: formData.targetAudience.trim(),
-
-      problemStatement: formData.problemStatement.trim(),
-
-      proposedSolution: formData.proposedSolution.trim(),
-    };
-
-    console.log("Idea Data:", ideaData);
-
-    /*
-      পরে এখানে API request হবে:
-
-      await fetch("http://localhost:5000/ideas", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(ideaData),
-      });
-    */
-
-    setTimeout(() => {
+      // সফল হলে form reset
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Error creating idea:", error);
+    } finally {
       setIsSubmitting(false);
-    }, 700);
+    }
   };
 
   return (
