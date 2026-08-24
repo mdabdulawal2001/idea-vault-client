@@ -126,3 +126,21 @@ export const updateIdea = async (id, ideaData) => {
 
   return await res.json();
 };
+
+// ==========================================
+// DELETE IDEA
+// ==========================================
+
+export const deleteIdea = async (id) => {
+  const res = await fetch(`${API_URL}/ideas/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(errorData.message || "Failed to delete idea");
+  }
+
+  return await res.json();
+};

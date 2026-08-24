@@ -5,6 +5,7 @@ import { Lightbulb } from "lucide-react";
 
 import MyIdeaCard from "./MyIdeaCard";
 import EditIdeaModal from "./EditIdeaModal";
+import DeleteIdeaModal from "./DeleteIdeaModal";
 
 const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
   const [ideas, setIdeas] = useState(initialIdeas);
@@ -12,6 +13,7 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
   const [selectedIdea, setSelectedIdea] = useState(null);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   // ==========================================
   // OPEN EDIT MODAL
@@ -22,18 +24,11 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
     setIsEditModalOpen(true);
   };
 
-  // ==========================================
   // CLOSE EDIT MODAL
-  // ==========================================
 
-  const handleCloseEditModal = () => {
-    setIsEditModalOpen(false);
-    setSelectedIdea(null);
-  };
 
-  // ==========================================
   // UPDATE IDEA IN UI
-  // ==========================================
+
 
   const handleIdeaUpdated = (updatedIdea) => {
     setIdeas((prevIdeas) =>
@@ -46,6 +41,20 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
           : idea,
       ),
     );
+  };
+
+
+    // DELETE MODAL HANDLERS
+  const handleDeleteClick = (idea) => {
+    setSelectedIdea(idea);
+    setIsDeleteModalOpen(true);
+  };
+
+
+  const handleIdeaDeleted = (deletedId) => {
+    setIdeas((prev) => prev.filter((item) => String(item._id) !== String(deletedId)));
+
+    onDelete?.(deletedId);
   };
 
   return (
@@ -98,7 +107,7 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
               idea={idea}
               index={index}
               onEdit={handleEdit}
-              onDelete={onDelete}
+              onDelete={handleDeleteClick}
             />
           ))}
         </div>
@@ -113,6 +122,16 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
           onUpdated={handleIdeaUpdated}
+        />
+      )}
+
+      {selectedIdea && (
+        <DeleteIdeaModal
+          key={`delete-${selectedIdea._id}`}
+          idea={selectedIdea}
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onDeleted={handleIdeaDeleted}
         />
       )}
     </section>
