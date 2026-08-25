@@ -147,7 +147,7 @@ export const deleteIdea = async (id) => {
 
 
 // comments functionality
-
+// comments post
 export const createComment = async (commentData) => {
   const res = await fetch(`${API_URL}/comments`, {
     method: "POST",
@@ -168,7 +168,7 @@ export const createComment = async (commentData) => {
   return await res.json();
 };
 
-
+// comments get
 export const getCommentsByIdea = async (ideaId) => {
   const res = await fetch(
     `${API_URL}/comments/idea/${ideaId}`
@@ -179,6 +179,67 @@ export const getCommentsByIdea = async (ideaId) => {
 
     throw new Error(
       errorData.message || "Failed to fetch comments"
+    );
+  }
+
+  return await res.json();
+};
+
+// comments get by user id
+export const getCommentsByUser = async (userId) => {
+  const res = await fetch(
+    `${API_URL}/comments/user/${userId}`
+  );
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(
+      errorData.message || "Failed to fetch user comments"
+    );
+  }
+
+  return await res.json();
+};
+
+// patch comments
+export const updateComment = async (commentId, text) => {
+  const res = await fetch(
+    `${API_URL}/comments/${commentId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    }
+  );
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(
+      errorData.message || "Failed to update comment"
+    );
+  }
+
+  return await res.json();
+};
+
+// delete comments
+export const deleteComment = async (commentId) => {
+  const res = await fetch(
+    `${API_URL}/comments/${commentId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(
+      errorData.message || "Failed to delete comment"
     );
   }
 
