@@ -1,4 +1,58 @@
+
 const API_URL = process.env.NEXT_PUBLIC_SERVER_API_URL;
+
+
+// helper function for get token every component
+const getToken = async () => {
+  if (typeof window !== "undefined") {
+    const { authClient } = await import("@/lib/auth-client");
+
+    const { data, error } = await authClient.token();
+
+    if (error) {
+      throw new Error(
+        error.message || "Failed to get client JWT token"
+      );
+    }
+
+    return data?.token || null;
+  }
+
+  try {
+    const { auth } = await import("@/lib/auth");
+    const { headers } = await import("next/headers");
+
+    const { token, error } = await auth.api.getToken({
+      headers: await headers(),
+    });
+
+    if (error) {
+      throw new Error(
+        error.message || "Failed to get server JWT token"
+      );
+    }
+
+    return token || null;
+  } catch (error) {
+    console.error("JWT Error:", error);
+    throw error;
+  }
+};
+
+// headers
+const getAuthHeaders = async () => {
+  const token = await getToken();
+
+  return {
+    "Content-Type": "application/json",
+    ...(token && {
+      Authorization: `Bearer ${token}`,
+    }),
+  };
+};
+
+
+
 
 // Get All Ideas
 export const getAllIdeas = async (filters = {}) => {
@@ -23,7 +77,7 @@ export const getAllIdeas = async (filters = {}) => {
   if (filters.toDate) {
     params.append("toDate", filters.toDate);
   }
-    // Author
+  // Author
   if (filters.authorId) {
     params.append("authorId", filters.authorId);
   }
@@ -45,8 +99,6 @@ export const getAllIdeas = async (filters = {}) => {
   return data;
 };
 
-
-
 // Get All Categories
 export const getIdeaCategories = async () => {
   const res = await fetch(`${API_URL}/idea-categories`);
@@ -58,14 +110,17 @@ export const getIdeaCategories = async () => {
   return res.json();
 };
 
-
 // ===============================
 // Get Single Idea
 // ===============================
 
 export const getIdeaById = async (id) => {
-  const res = await fetch(`${API_URL}/ideas/${id}`);
-
+  const headers = await getAuthHeaders();
+  const res = await fetch(`${API_URL}/ideas/${id}`, {
+    method: "GET",
+    headers: headers,
+  });
+  console.log(headers)
   if (!res.ok) {
     throw new Error("Failed to fetch idea");
   }
@@ -74,7 +129,6 @@ export const getIdeaById = async (id) => {
 
   return data;
 };
-
 
 // get trending ideas
 export const getTrendingIdeas = async () => {
@@ -88,7 +142,6 @@ export const getTrendingIdeas = async () => {
 
   return data;
 };
-
 
 // create ideas
 export const createIdea = async (ideaData) => {
@@ -145,7 +198,6 @@ export const deleteIdea = async (id) => {
   return await res.json();
 };
 
-
 // comments functionality
 // comments post
 export const createComment = async (commentData) => {
@@ -160,9 +212,7 @@ export const createComment = async (commentData) => {
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
 
-    throw new Error(
-      errorData.message || "Failed to post comment"
-    );
+    throw new Error(errorData.message || "Failed to post comment");
   }
 
   return await res.json();
@@ -170,16 +220,12 @@ export const createComment = async (commentData) => {
 
 // comments get
 export const getCommentsByIdea = async (ideaId) => {
-  const res = await fetch(
-    `${API_URL}/comments/idea/${ideaId}`
-  );
+  const res = await fetch(`${API_URL}/comments/idea/${ideaId}`);
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
 
-    throw new Error(
-      errorData.message || "Failed to fetch comments"
-    );
+    throw new Error(errorData.message || "Failed to fetch comments");
   }
 
   return await res.json();
@@ -187,16 +233,12 @@ export const getCommentsByIdea = async (ideaId) => {
 
 // comments get by user id
 export const getCommentsByUser = async (userId) => {
-  const res = await fetch(
-    `${API_URL}/comments/user/${userId}`
-  );
+  const res = await fetch(`${API_URL}/comments/user/${userId}`);
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
 
-    throw new Error(
-      errorData.message || "Failed to fetch user comments"
-    );
+    throw new Error(errorData.message || "Failed to fetch user comments");
   }
 
   return await res.json();
@@ -204,23 +246,18 @@ export const getCommentsByUser = async (userId) => {
 
 // patch comments
 export const updateComment = async (commentId, text) => {
-  const res = await fetch(
-    `${API_URL}/comments/${commentId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    }
-  );
+  const res = await fetch(`${API_URL}/comments/${commentId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ text }),
+  });
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
 
-    throw new Error(
-      errorData.message || "Failed to update comment"
-    );
+    throw new Error(errorData.message || "Failed to update comment");
   }
 
   return await res.json();
@@ -228,19 +265,14 @@ export const updateComment = async (commentId, text) => {
 
 // delete comments
 export const deleteComment = async (commentId) => {
-  const res = await fetch(
-    `${API_URL}/comments/${commentId}`,
-    {
-      method: "DELETE",
-    }
-  );
+  const res = await fetch(`${API_URL}/comments/${commentId}`, {
+    method: "DELETE",
+  });
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
 
-    throw new Error(
-      errorData.message || "Failed to delete comment"
-    );
+    throw new Error(errorData.message || "Failed to delete comment");
   }
 
   return await res.json();
