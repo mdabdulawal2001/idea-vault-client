@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 
 const ProfileCard = ({ user, onEdit }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const router = useRouter();
   const handleProfileUpdate = async (formData) => {
@@ -63,6 +64,7 @@ const ProfileCard = ({ user, onEdit }) => {
   };
 
   const firstLetter = user?.name?.charAt(0)?.toUpperCase() || "U";
+  const showImage = user?.image && !imageError;
 
   const joinedDate = user?.createdAt
     ? new Date(user.createdAt).toLocaleDateString("en-US", {
@@ -92,15 +94,18 @@ const ProfileCard = ({ user, onEdit }) => {
             {/* Avatar */}
 
             <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-cyan-400 to-blue-600 text-2xl font-extrabold text-white shadow-lg shadow-blue-500/20 ring-4 ring-blue-50 transition-transform duration-300 group-hover:scale-[1.03] dark:ring-blue-500/10">
-              {user?.image ? (
+              { showImage? (
                 <Image
                   src={user.image}
                   alt={user?.name || "User"}
                   fill
+                  onError={() => setImageError(true)}
                   className="object-cover"
                 />
               ) : (
-                firstLetter
+                <span>
+                  {firstLetter}
+                </span>
               )}
             </div>
 

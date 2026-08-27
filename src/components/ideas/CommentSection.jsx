@@ -72,7 +72,7 @@ const CommentSection = ({ idea }) => {
     return () => {
       cancelled = true;
     };
-  }, [idea?._id]);
+  }, [idea?._id, isPending, session?.user?.id]);
 
   // ================= ADD =================
 
@@ -185,7 +185,7 @@ const CommentSection = ({ idea }) => {
               Loading comments...
             </p>
           </div>
-        ) : comments.length === 0 ? (
+        ) : !isLoading && comments.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center dark:border-slate-700 dark:bg-slate-900">
             <MessageCircle className="mx-auto h-8 w-8 text-slate-300 dark:text-slate-600" />
 
