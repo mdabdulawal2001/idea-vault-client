@@ -118,7 +118,7 @@ export const getIdeaById = async (id) => {
   const headers = await getAuthHeaders();
   const res = await fetch(`${API_URL}/ideas/${id}`, {
     method: "GET",
-    headers: headers,
+    headers,
   });
   console.log(headers)
   if (!res.ok) {
@@ -145,11 +145,10 @@ export const getTrendingIdeas = async () => {
 
 // create ideas
 export const createIdea = async (ideaData) => {
+  const headers = await getAuthHeaders();
   const res = await fetch(`${API_URL}/ideas`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify(ideaData),
   });
 
@@ -163,11 +162,10 @@ export const createIdea = async (ideaData) => {
 };
 
 export const updateIdea = async (id, ideaData) => {
+  const headers = await getAuthHeaders();
   const res = await fetch(`${API_URL}/ideas/${id}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify(ideaData),
   });
 
@@ -185,8 +183,10 @@ export const updateIdea = async (id, ideaData) => {
 // ==========================================
 
 export const deleteIdea = async (id) => {
+  const headers = await getAuthHeaders();
   const res = await fetch(`${API_URL}/ideas/${id}`, {
     method: "DELETE",
+    headers,
   });
 
   if (!res.ok) {
@@ -201,11 +201,10 @@ export const deleteIdea = async (id) => {
 // comments functionality
 // comments post
 export const createComment = async (commentData) => {
+  const headers = await getAuthHeaders();
   const res = await fetch(`${API_URL}/comments`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify(commentData),
   });
 
@@ -231,14 +230,21 @@ export const getCommentsByIdea = async (ideaId) => {
   return await res.json();
 };
 
-// comments get by user id
-export const getCommentsByUser = async (userId) => {
-  const res = await fetch(`${API_URL}/comments/user/${userId}`);
+// get my comments
+export const getMyComments = async () => {
+  const headers = await getAuthHeaders();
+
+  const res = await fetch(`${API_URL}/comments/me`, {
+    method: "GET",
+    headers,
+  });
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
 
-    throw new Error(errorData.message || "Failed to fetch user comments");
+    throw new Error(
+      errorData.message || "Failed to fetch your comments"
+    );
   }
 
   return await res.json();
@@ -246,11 +252,10 @@ export const getCommentsByUser = async (userId) => {
 
 // patch comments
 export const updateComment = async (commentId, text) => {
+  const headers = await getAuthHeaders();
   const res = await fetch(`${API_URL}/comments/${commentId}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify({ text }),
   });
 
@@ -265,8 +270,10 @@ export const updateComment = async (commentId, text) => {
 
 // delete comments
 export const deleteComment = async (commentId) => {
+  const headers = await getAuthHeaders();
   const res = await fetch(`${API_URL}/comments/${commentId}`, {
     method: "DELETE",
+    headers,
   });
 
   if (!res.ok) {

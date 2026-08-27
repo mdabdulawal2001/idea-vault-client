@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
   CalendarDays,
   MessageCircle,
@@ -14,6 +15,12 @@ const CommentCard = ({
   onEdit,
   onDelete,
 }) => {
+  const { data: session } = authClient.useSession();
+
+const isOwner =
+  session?.user?.id &&
+  comment?.userId === session.user.id;
+
   return (
     <article className="group rounded-2xl bg-[#eae8e8] p-5 shadow-[0_4px_25px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_35px_rgba(37,99,235,0.15)] dark:border dark:border-slate-800 dark:bg-slate-900! dark:shadow-[0_4px_20px_rgba(0,0,0,0.25)] dark:hover:border-blue-800 dark:hover:shadow-[0_12px_35px_rgba(37,99,235,0.12)]">
 
@@ -97,7 +104,8 @@ const CommentCard = ({
 
         {/* Actions */}
 
-        <div className="mt-2 flex shrink-0 items-center justify-center gap-2 md:justify-start">
+        {isOwner && (
+          <div className="mt-2 flex shrink-0 items-center justify-center gap-2 md:justify-start">
 
           {/* Edit */}
 
@@ -122,6 +130,7 @@ const CommentCard = ({
           </button>
 
         </div>
+        )}
 
       </div>
 

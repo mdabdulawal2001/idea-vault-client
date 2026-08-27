@@ -11,9 +11,9 @@ import CommentEditModal from "./CommentEditModal";
 import CommentDeleteModal from "./CommentDeleteModal";
 
 import {
-  getCommentsByUser,
   updateComment,
   deleteComment,
+  getMyComments,
 } from "@/services/ideaService";
 
 import { authClient } from "@/lib/auth-client";
@@ -34,46 +34,43 @@ const MyInteractions = () => {
   // ================= GET USER COMMENTS =================
 
   useEffect(() => {
-    if (isPending) return;
+  if (isPending) return;
 
-    if (!session?.user?.id) {
-      setIsLoading(false);
-      return;
-    }
+  if (!session?.user?.id) {
+    setIsLoading(false);
+    return;
+  }
 
-    if (!session?.user?.id) return;
+  let cancelled = false;
 
-    let cancelled = false;
+  queueMicrotask(() => {
+    if (!cancelled) setIsLoading(true);
+  });
 
-    // setIsLoading(true);
-    queueMicrotask(() => {
-      if (!cancelled) setIsLoading(true);
+  getMyComments()
+    .then((result) => {
+      console.log("MY COMMENTS RESULT:", result);
+
+      if (!cancelled) {
+        setComments(result.comments || []);
+      }
+    })
+    .catch((error) => {
+      if (!cancelled) {
+        console.error("Error loading my comments:", error);
+        toast.error(error.message || "Failed to load your comments");
+      }
+    })
+    .finally(() => {
+      if (!cancelled) {
+        setIsLoading(false);
+      }
     });
 
-    getCommentsByUser(session.user.id)
-      .then((result) => {
-        console.log("USER COMMENTS RESULT:", result);
-        if (!cancelled) {
-          setComments(result.comments || []);
-        }
-      })
-      .catch((error) => {
-        if (!cancelled) {
-          console.error("Error loading user comments:", error);
-
-          toast.error(error.message || "Failed to load your comments");
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [session?.user?.id]);
+  return () => {
+    cancelled = true;
+  };
+}, [session?.user?.id, isPending]);
 
   // ================= EDIT =================
 
