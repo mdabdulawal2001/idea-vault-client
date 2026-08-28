@@ -15,8 +15,16 @@ import {
 } from "lucide-react";
 
 import CommentSection from "./CommentSection";
+import { useState } from "react";
 
 const IdeaDetails = ({ idea }) => {
+  const [photoError, setPhotoError] = useState(false);
+
+  const firstLetter =
+    idea?.authorName?.charAt(0)?.toUpperCase() || "U";
+
+  const showPhoto = Boolean(idea?.authorPhoto) && !photoError;
+
   const formatDate = (date) =>
     new Date(date).toLocaleDateString("en-US", {
       month: "long",
@@ -67,14 +75,22 @@ const IdeaDetails = ({ idea }) => {
                 {idea.shortDescription}
               </p>
 
+              {/* ================= HERO CREATOR ================= */}
               <div className="mt-7 flex items-center gap-3">
-                <div className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-white shadow-md dark:border-slate-800">
-                  <Image
-                    src={idea.authorPhoto}
-                    alt={idea.authorName}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-blue-100 shadow-md dark:border-slate-800 dark:bg-slate-800">
+                  {showPhoto ? (
+                    <Image
+                      src={idea.authorPhoto}
+                      alt={idea.authorName}
+                      fill
+                      onError={() => setPhotoError(true)}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <span className="text-sm font-bold text-blue-600 dark:text-cyan-400">
+                      {firstLetter}
+                    </span>
+                  )}
                 </div>
 
                 <div>
@@ -232,13 +248,20 @@ const IdeaDetails = ({ idea }) => {
               }
             >
               <div className="flex items-center gap-3">
-                <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-blue-100 dark:border-blue-500/20">
-                  <Image
-                    src={idea.authorPhoto}
-                    alt={idea.authorName}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border-2 border-blue-100 bg-blue-100 dark:border-blue-500/20 dark:bg-slate-800">
+                  {showPhoto ? (
+                    <Image
+                      src={idea.authorPhoto}
+                      alt={idea.authorName}
+                      fill
+                      onError={() => setPhotoError(true)}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <span className="text-base font-bold text-blue-600 dark:text-cyan-400">
+                      {firstLetter}
+                    </span>
+                  )}
                 </div>
 
                 <div>
@@ -254,14 +277,19 @@ const IdeaDetails = ({ idea }) => {
               <div className="mt-5 border-t border-slate-100 pt-4 dark:border-slate-800">
                 <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                   <UserRound className="h-4 w-4 text-blue-600 dark:text-cyan-400" />
-                  <span className="truncate">Creator ID: {idea.authorId}</span>
+                  <span className="truncate">
+                    Creator ID: {idea.authorId}
+                  </span>
                 </div>
               </div>
             </SidebarCard>
 
             {/* TIMELINE */}
             <SidebarCard title="Timeline">
-              <TimelineItem label="Created" date={formatDate(idea.createdAt)} />
+              <TimelineItem
+                label="Created"
+                date={formatDate(idea.createdAt)}
+              />
 
               <TimelineItem
                 label="Last Updated"

@@ -174,6 +174,15 @@ const CommentSection = ({ idea }) => {
         onCommentAdded={handleCommentAdded}
       />
 
+      {/* comments and count */}
+      <div>
+        {comments.length > 0 && (
+          <p className="font-bold text-lg text-slate-500 dark:text-slate-400">
+            {comments.length === 1 ? "comment" : "comments"} ({comments.length})
+          </p>
+        )}
+      </div>
+
       {/* ================= COMMENTS ================= */}
 
       <div className="space-y-4">

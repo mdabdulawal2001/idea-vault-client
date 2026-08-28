@@ -24,7 +24,6 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
     setIsEditModalOpen(true);
   };
 
-  // CLOSE EDIT MODAL
 
 
   // UPDATE IDEA IN UI

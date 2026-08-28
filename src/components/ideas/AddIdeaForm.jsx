@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { createIdea } from "@/services/ideaService";
+import toast from "react-hot-toast";
 
 const categories = [
   "Tech",
@@ -94,11 +95,14 @@ const AddIdeaForm = () => {
     e.preventDefault();
 
     if (!user) {
+      toast.error("Please login to publish an idea");
       console.log("User is not logged in");
       return;
     }
 
     setIsSubmitting(true);
+
+    const loadingToast = toast.loading("Publishing your idea...");
 
     try {
       const finalCategory =
@@ -135,11 +139,16 @@ const AddIdeaForm = () => {
 
       const result = await createIdea(ideaData);
 
-      console.log("Idea created:", result);
+      toast.dismiss(loadingToast);
+      toast.success(result.message || "Idea published successfully!");
 
       setFormData(initialFormData);
     } catch (error) {
+      toast.dismiss(loadingToast);
+
       console.error("Error creating idea:", error);
+
+      toast.error(error.message || "Failed to publish idea ❌");
     } finally {
       setIsSubmitting(false);
     }
@@ -508,36 +517,6 @@ const AddIdeaForm = () => {
                   />
                 </FormField>
 
-                {/* IMAGE URL */}
-
-                <FormField label="Image URL" required>
-                  <InputField
-                    className="transition-all duration-300 ease-out
-                    hover:-translate-y-
-                    hover:border-blue-500/50
-                    hover:shadow-sm hover:shadow-blue-500/5
-                    focus:-translate-y-0.5
-                    focus:border-blue-500
-                    focus:ring-2
-                    focus:ring-blue-500/10
-                    focus:shadow-md
-                    focus:shadow-blue-500/10
-                    dark:border-default-100/15
-                    dark:bg-default-50/5
-                    dark:hover:border-blue-400/50
-                    dark:focus:border-blue-400
-                    dark:focus:ring-blue-400/10
-                    dark:focus:shadow-blue-400/5"
-                    name="imageURL"
-                    type="url"
-                    value={formData.imageURL}
-                    onChange={handleChange}
-                    placeholder="https://example.com/image.jpg"
-                    icon={<ImageIcon size={18} />}
-                    required
-                  />
-                </FormField>
-
                 {/* ESTIMATED BUDGET */}
 
                 <FormField label="Estimated Budget" hint="Optional">
@@ -565,6 +544,36 @@ const AddIdeaForm = () => {
                     onChange={handleChange}
                     placeholder="e.g. 8500"
                     icon={<DollarSign size={18} />}
+                  />
+                </FormField>
+
+                {/* IMAGE URL */}
+
+                <FormField label="Image URL" required className="md:col-span-2">
+                  <InputField
+                    className="transition-all duration-300 ease-out
+                    hover:-translate-y-
+                    hover:border-blue-500/50
+                    hover:shadow-sm hover:shadow-blue-500/5
+                    focus:-translate-y-0.5
+                    focus:border-blue-500
+                    focus:ring-2
+                    focus:ring-blue-500/10
+                    focus:shadow-md
+                    focus:shadow-blue-500/10
+                    dark:border-default-100/15
+                    dark:bg-default-50/5
+                    dark:hover:border-blue-400/50
+                    dark:focus:border-blue-400
+                    dark:focus:ring-blue-400/10
+                    dark:focus:shadow-blue-400/5"
+                    name="imageURL"
+                    type="url"
+                    value={formData.imageURL}
+                    onChange={handleChange}
+                    placeholder="https://example.com/image.jpg"
+                    icon={<ImageIcon size={18} />}
+                    required
                   />
                 </FormField>
               </div>

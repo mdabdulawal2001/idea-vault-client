@@ -99,6 +99,26 @@ export const getAllIdeas = async (filters = {}) => {
   return data;
 };
 
+// get my ideas
+export const getMyIdeas = async () => {
+  const headers = await getAuthHeaders();
+
+  const res = await fetch(`${API_URL}/my-ideas`, {
+    method: "GET",
+    headers,
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+
+    throw new Error(
+      errorData.message || "Failed to fetch your ideas"
+    );
+  }
+
+  return await res.json();
+};
+
 // Get All Categories
 export const getIdeaCategories = async () => {
   const res = await fetch(`${API_URL}/idea-categories`);

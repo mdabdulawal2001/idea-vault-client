@@ -17,6 +17,8 @@ const CommentForm = ({ idea, user, onCommentAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const loadingToast = toast.loading("Posting comment...");
+
     if (!text.trim()) {
       toast.error("Please write a comment first.");
       return;
@@ -47,6 +49,7 @@ const CommentForm = ({ idea, user, onCommentAdded }) => {
       };
 
       const result = await createComment(commentData);
+      toast.dismiss(loadingToast);
 
       toast.success(
         result.message || "Comment posted successfully!"
@@ -57,7 +60,7 @@ const CommentForm = ({ idea, user, onCommentAdded }) => {
       onCommentAdded?.(result.comment);
     } catch (error) {
       console.error("Error posting comment:", error);
-
+      toast.dismiss(loadingToast);
       toast.error(
         error.message || "Failed to post comment"
       );

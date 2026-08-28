@@ -16,6 +16,7 @@ import UserAvatar from "./UserAvatar";
 import toast from "react-hot-toast";
 import ThemeToggleIcon from "./ThemeToggleIcon";
 
+
 const navLinks = [
   {
     name: "Home",

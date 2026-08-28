@@ -50,7 +50,7 @@ const LoginForm = () => {
 
       // Success
       if (data) {
-        toast.success("Login successful! 🎉");
+        toast.success("Login successful!");
         router.push("/");
       }
     } catch (err) {
