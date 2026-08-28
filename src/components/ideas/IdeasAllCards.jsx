@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import IdeaCard from "./IdeaCard";
 import IdeaFilters from "./IdeaFilters";
 import { SearchX } from "lucide-react";
+import IdeaCardSkeleton from "../skeletons/IdeaCardSkeleton";
 
 const DEFAULT_FILTERS = {
   search: "",
@@ -110,14 +111,7 @@ const IdeasAllCards = () => {
 
         {/* ================= LOADING ================= */}
         {loading ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {[1, 2, 3].map((item) => (
-              <div
-                key={item}
-                className="h-125 animate-pulse rounded-2xl bg-slate-200 dark:bg-slate-800"
-              />
-            ))}
-          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"> {Array.from({ length: 6 }).map((_, index) => ( <IdeaCardSkeleton key={index} /> ))} </div>
         ) : ideas.length > 0 ? (
           /* ================= IDEAS GRID ================= */
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
