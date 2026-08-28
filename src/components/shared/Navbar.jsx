@@ -173,7 +173,7 @@ const Navbar = () => {
 
           {/* ================= SESSION LOADING ================= */}
 
-          {isPending ? (
+          { !mounted || isPending ? (
             <NavbarSessionSpinner />
           ) : !user ? (
             /* ================= LOGGED OUT ================= */
@@ -360,7 +360,7 @@ const Navbar = () => {
             <div className="navbar-mobile-scroll mx-auto max-h-[calc(100vh-76px)] max-w-7xl space-y-2 overflow-y-auto px-4 py-5 sm:px-6">
               {/* ================= MOBILE PROFILE ================= */}
 
-              {isPending ? (
+              { !mounted || isPending ? (
                 <div className="flex justify-center py-3">
                   <NavbarSessionSpinner />
                 </div>
