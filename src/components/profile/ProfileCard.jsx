@@ -14,6 +14,7 @@ import ProfileEditModal from "./ProfileEditModal";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { updateProfile } from "@/services/profileService";
 
 
 const ProfileCard = ({ user, onEdit }) => {
@@ -37,16 +38,20 @@ const ProfileCard = ({ user, onEdit }) => {
         return;
       }
 
-      const { data, error } = await authClient.updateUser({
-        name,
-        image: image || null,
-      });
+      // const { data, error } = await authClient.updateUser({
+      //   name,
+      //   image: image || null,
+      // });
+      const data = await updateProfile({
+      name,
+      image: image || null,
+    });
 
-      if (error) {
-        console.error("Profile update error:", error);
-        toast.error(error.message || "Failed to update profile");
-        return;
-      }
+      // if (error) {
+      //   console.error("Profile update error:", error);
+      //   toast.error(error.message || "Failed to update profile");
+      //   return;
+      // }
 
       console.log("Updated user:", data);
 

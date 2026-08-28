@@ -52,8 +52,6 @@ const getAuthHeaders = async () => {
 };
 
 
-
-
 // Get All Ideas
 export const getAllIdeas = async (filters = {}) => {
   const params = new URLSearchParams();

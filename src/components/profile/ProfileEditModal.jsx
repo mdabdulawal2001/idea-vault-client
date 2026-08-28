@@ -88,7 +88,6 @@ const ProfileEditModal = ({ isOpen, onOpenChange, user, onSubmit }) => {
         <div className="space-y-5">
           {/* Name */}
           <TextField
-            name="name"
             defaultValue={user?.name || ""}
             isRequired
             validate={(value) => {
@@ -109,6 +108,7 @@ const ProfileEditModal = ({ isOpen, onOpenChange, user, onSubmit }) => {
               <UserRound className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
               <Input
+                name="name"
                 placeholder="Enter your name"
                 className="w-full pl-10"
               />
