@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Avatar } from "@heroui/react";
 import { LogOut, UserRound } from "lucide-react";
 
@@ -42,6 +42,8 @@ const navLinks = [
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const profileRef = useRef(null);
 
   const { theme, setTheme, resolvedTheme } = useTheme();
   const mounted = useSyncExternalStore(
@@ -70,9 +72,48 @@ const Navbar = () => {
 
   // Logout Functionality
   const handleLogout = async () => {
+  try {
     await authClient.signOut();
+
+    setIsProfileOpen(false);
+    setIsMenuOpen(false);
+
     toast.success("Logged out successfully");
+
+    router.replace("/");
+    router.refresh();
+  } catch (error) {
+    console.error("Logout failed:", error);
+    toast.error("Failed to logout");
+  }
+};
+
+useEffect(() => {
+  const handlePointerDownOutside = (event) => {
+    if (
+      profileRef.current &&
+      !profileRef.current.contains(event.target)
+    ) {
+      setIsProfileOpen(false);
+    }
   };
+
+  const handleEscape = (event) => {
+    if (event.key === "Escape") {
+      setIsProfileOpen(false);
+    }
+  };
+
+  if (isProfileOpen) {
+    document.addEventListener("pointerdown", handlePointerDownOutside);
+    document.addEventListener("keydown", handleEscape);
+  }
+
+  return () => {
+    document.removeEventListener("pointerdown", handlePointerDownOutside);
+    document.removeEventListener("keydown", handleEscape);
+  };
+}, [isProfileOpen]);
 
   // ================= NAVIGATION =================
 
@@ -196,7 +237,7 @@ const Navbar = () => {
           ) : (
             /* ================= PROFILE ================= */
 
-            <div className="relative ml-1">
+            <div ref={profileRef} className="relative ml-1">
               <button
                 type="button"
                 onClick={() => setIsProfileOpen((previous) => !previous)}

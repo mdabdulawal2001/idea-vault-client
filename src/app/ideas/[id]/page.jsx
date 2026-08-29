@@ -14,6 +14,7 @@ export async function generateMetadata({ params }) {
   } catch {
     return {
       title: "Idea Details | IdeaVault",
+      description: "Explore detailed information about this startup idea.",
     };
   }
 }

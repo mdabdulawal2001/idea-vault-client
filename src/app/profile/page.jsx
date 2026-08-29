@@ -4,6 +4,13 @@ import { getProfile } from "@/services/profileService";
 import { headers } from "next/headers";
 import React from "react";
 
+export const metadata = {
+  title: "Profile Management | IdeaVault",
+  description:
+    "Manage your IdeaVault profile information and account settings.",
+};
+
+
 const ProfilePage = async () => {
   //     const session = await auth.api.getSession({
   //     headers: await headers() // you need to pass the headers object.

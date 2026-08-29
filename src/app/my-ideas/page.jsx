@@ -6,6 +6,12 @@ import { getMyIdeas } from "@/services/ideaService";
 import { headers } from "next/headers";
 
 
+export const metadata = {
+  title: "My Ideas | IdeaVault",
+  description:
+    "Manage the startup ideas you have shared with the IdeaVault community.",
+};
+
 const MyIdeasPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),

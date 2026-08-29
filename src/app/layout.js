@@ -4,9 +4,15 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "react-hot-toast";
 
+// app/layout.jsx
+
 export const metadata = {
-  title: "IdeaVault",
-  description: "Share, Discover & Innovate",
+  title: {
+    default: "IdeaVault",
+    template: "%s | IdeaVault",
+  },
+  description:
+    "Share, discover, and explore innovative startup ideas with the IdeaVault community.",
 };
 
 export default function RootLayout({ children }) {
