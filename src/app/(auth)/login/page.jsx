@@ -1,8 +1,7 @@
 import LoginForm from '@/components/auth/LoginForm';
-import React from 'react';
 
 export const metadata = {
-  title: "Login | IdeaVault",
+  title: "Login",
   description:
     "Sign in to your IdeaVault account and continue exploring innovative ideas.",
 };

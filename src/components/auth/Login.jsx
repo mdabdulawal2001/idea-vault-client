@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Form,
@@ -14,23 +15,18 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
-import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import { getSafeCallbackUrl } from "@/lib/getSafeCallbackUrl";
 
-const LoginForm = () => {
+const LoginFormContent = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // Desired Route
-
-  const requestedCallbackUrl =
-  searchParams.get("callbackUrl");
-  
-  const callbackUrl =
-  getSafeCallbackUrl(requestedCallbackUrl);
+  const requestedCallbackUrl = searchParams.get("callbackUrl");
+  const callbackUrl = getSafeCallbackUrl(requestedCallbackUrl);
 
   // Login
   const handleSubmit = async (event) => {
@@ -46,11 +42,8 @@ const LoginForm = () => {
       const { data, error } = await authClient.signIn.email({
         email,
         password,
-        // Better Auth Callback
-        // callbackURL: callbackUrl,
+        callbackURL: callbackUrl,
       });
-
-      console.log({ data, error });
 
       // Remove loading toast
       toast.dismiss(loadingToast);
@@ -64,30 +57,14 @@ const LoginForm = () => {
       // Success
       if (data) {
         toast.success("Login successful!");
-        // Desired Route
-        window.location.replace(callbackUrl);
-        // router.replace(callbackUrl);
-        // router.refresh();
-
-        return;
+        // শুধু replace ব্যবহার করবেন, router.refresh() কল করা যাবে না
+        router.replace(callbackUrl);
       }
     } catch (err) {
-      // Remove loading toast
       toast.dismiss(loadingToast);
-
       console.error(err);
-
       toast.error("Something went wrong ❌");
     }
-  };
-
-  // login with google
-  const handleGoogleLogin = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-      // Desired route
-      callbackURL: callbackUrl,
-    });
   };
 
   return (
@@ -111,34 +88,26 @@ const LoginForm = () => {
       >
         {/* Background Glow */}
         <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-blue-500/10 blur-3xl dark:bg-cyan-400/10" />
-
         <div className="pointer-events-none absolute -bottom-24 -left-20 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl dark:bg-blue-500/10" />
 
         <div className="relative">
-          {/* Header */}
           <div className="mb-7 text-center">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{
-                duration: 0.4,
-                delay: 0.2,
-              }}
+              transition={{ duration: 0.4, delay: 0.2 }}
               className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-cyan-400"
             >
               <LogIn className="h-6 w-6" />
             </motion.div>
-
             <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
               Welcome Back
             </h1>
-
             <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
               Sign in to continue to your IdeaVault account.
             </p>
           </div>
 
-          {/* Login Form */}
           <Form className="flex w-full flex-col gap-5" onSubmit={handleSubmit}>
             {/* Email */}
             <TextField
@@ -146,27 +115,20 @@ const LoginForm = () => {
               name="email"
               type="email"
               validate={(value) => {
-                if (!value) {
-                  return "Email is required";
-                }
-
+                if (!value) return "Email is required";
                 if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                   return "Please enter a valid email address";
                 }
-
                 return null;
               }}
             >
               <Label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Email Address
               </Label>
-
               <div className="relative mt-1.5">
                 <Mail className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
-
-                <Input name="email" className="w-full pl-10" placeholder="Enter Your Email" />
+                <Input className="w-full pl-10" placeholder="Enter Your Email" />
               </div>
-
               <FieldError />
             </TextField>
 
@@ -176,52 +138,31 @@ const LoginForm = () => {
               name="password"
               type={`${isShowPassword ? "text" : "password"}`}
               validate={(value) => {
-                if (!value) {
-                  return "Password is required";
-                }
-
-                if (value.length < 6) {
-                return "Password must be at least 6 characters";
-              }
-
-              if (!/[A-Z]/.test(value)) {
-                return "Password must contain at least one uppercase letter";
-              }
-              if (!/[a-z]/.test(value)) {
-                return "Password must contain at least one lowercase letter";
-              }
-
-              if (!/[0-9]/.test(value)) {
-                return "Password must contain at least one number";
-              }
-
+                if (!value) return "Password is required";
+                if (value.length < 6) return "Password must be at least 6 characters";
                 return null;
               }}
             >
               <Label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                 Password
               </Label>
-
-              <div className="relative mt-1.5">
+              <div className="relative mt-1.5 flex items-center">
                 <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
-
                 <Input
-                  name="password"
-                  className="w-full pl-10"
+                  className="w-full pl-10 pr-10"
                   placeholder="Enter your password"
                 />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 z-10 flex h-5 w-5 -translate-y-1/2 cursor-pointer items-center justify-center text-slate-500 transition-colors hover:text-slate-700 dark:hover:text-slate-200"
+                  onClick={() => setIsShowPassword(!isShowPassword)}
+                >
+                  {isShowPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
               </div>
-
               <FieldError />
-              <span
-                className="cursor-pointer absolute right-3 top-74 md:top-73.75"
-                onClick={() => setIsShowPassword(!isShowPassword)}
-              >
-                {isShowPassword ? <FaEye></FaEye> : <FaEyeSlash />}
-              </span>
             </TextField>
 
-            {/* Forgot Password */}
             <div className="-mt-1 flex justify-end">
               <button
                 type="button"
@@ -231,7 +172,6 @@ const LoginForm = () => {
               </button>
             </div>
 
-            {/* Submit */}
             <Button
               type="submit"
               className="h-12 w-full cursor-pointer rounded-xl bg-blue-600 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] dark:bg-blue-500 dark:hover:bg-blue-600"
@@ -240,13 +180,15 @@ const LoginForm = () => {
               Login
             </Button>
           </Form>
+
           <GoogleLoginButton callbackUrl={callbackUrl} />
-          {/* FOOTER */}
+
           <p className="text-center text-sm text-gray-500 mt-6">
             Don’t have an account?{" "}
-            <Link href={`/register?callbackUrl=${encodeURIComponent(
-                callbackUrl
-              )}`} className="text-blue-500 cursor-pointer">
+            <Link
+              href={`/register?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+              className="text-blue-500 cursor-pointer"
+            >
               Register
             </Link>
           </p>
@@ -255,5 +197,12 @@ const LoginForm = () => {
     </motion.div>
   );
 };
+
+// Next.js SearchParams requires Suspense wrap
+const LoginForm = () => (
+  <Suspense fallback={<div className="flex min-h-100 items-center justify-center">Loading...</div>}>
+    <LoginFormContent />
+  </Suspense>
+);
 
 export default LoginForm;

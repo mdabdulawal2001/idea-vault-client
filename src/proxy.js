@@ -1,21 +1,38 @@
-import { NextResponse } from 'next/server'
-import { auth } from './lib/auth'
-import { headers } from 'next/headers'
+import { NextResponse } from "next/server";
+import { auth } from "./lib/auth";
 
- 
-// This function can be marked `async` if using `await` inside
 export async function proxy(request) {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    })
-    if(!session){
-        return NextResponse.redirect(new URL('/login', request.url))
-    }
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  // User is NOT logged in
+  if (!session?.user) {
+    const pathname = request.nextUrl.pathname;
+    const search = request.nextUrl.search;
+
+    const callbackUrl = `${pathname}${search}`;
+
+    const loginUrl = new URL("/login", request.url);
+
+    loginUrl.searchParams.set(
+      "callbackUrl",
+      callbackUrl
+    );
+
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // User is logged in
+  return NextResponse.next();
 }
- 
-// Alternatively, you can use a default export:
-// export default function proxy(request) { ... }
- 
+
 export const config = {
-  matcher: ['/ideas/:id', '/add-idea', '/my-ideas', '/my-interactions', '/profile'],
-}
+  matcher: [
+    "/ideas/:id",
+    "/add-idea",
+    "/my-ideas",
+    "/my-interactions",
+    "/profile",
+  ],
+};

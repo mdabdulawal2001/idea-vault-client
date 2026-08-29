@@ -3,14 +3,28 @@
 import { motion } from "framer-motion";
 import { FaGoogle } from "@react-icons/all-files/fa/FaGoogle";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
-const GoogleLoginButton = () => {
+const GoogleLoginButton = ({callbackUrl = "/"}) => {
+
   // login with google
-  const handleGoogleLogin = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-    })
-  }
+   const handleGoogleLogin = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: callbackUrl,
+      });
+    } catch (error) {
+      console.error(
+        "Google login failed:",
+        error
+      );
+
+      toast.error(
+        "Google login failed ❌"
+      );
+    }
+  };
 
   return (
     <div className="mt-6 w-full">

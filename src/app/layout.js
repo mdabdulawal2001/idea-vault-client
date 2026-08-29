@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 export const metadata = {
   title: {
     default: "IdeaVault",
-    template: "%s | IdeaVault",
+    template: "IdeaVault | %s",
   },
   description:
     "Share, discover, and explore innovative startup ideas with the IdeaVault community.",

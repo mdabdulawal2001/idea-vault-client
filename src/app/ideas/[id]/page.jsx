@@ -1,5 +1,6 @@
 import { getIdeaById } from "@/services/ideaService";
 import IdeaDetails from "@/components/Ideas/IdeaDetails";
+import { requireAuth } from "@/lib/requireAuth";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -8,12 +9,12 @@ export async function generateMetadata({ params }) {
     const idea = await getIdeaById(id);
 
     return {
-      title: `${idea.title} | IdeaVault`,
+      title: `${idea.title} | IdeaDetails`,
       description: idea.shortDescription,
     };
   } catch {
     return {
-      title: "Idea Details | IdeaVault",
+      title: "IdeaVault | Idea Details",
       description: "Explore detailed information about this startup idea.",
     };
   }
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }) {
 
 const IdeaDetailsPage = async ({ params }) => {
   const { id } = await params;
-
+  const session = await requireAuth(`/ideas/${id}`) ;
   const idea = await getIdeaById(id);
 
   return <IdeaDetails idea={idea} />;
