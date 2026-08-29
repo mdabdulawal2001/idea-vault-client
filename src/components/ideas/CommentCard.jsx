@@ -25,6 +25,7 @@ const CommentCard = ({ comment, onEdit, onDelete }) => {
         <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-linear-to-br from-slate-100 to-slate-200 text-slate-800 shadow-inner ring-1 ring-slate-900/5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md dark:from-slate-800 dark:to-slate-900 dark:text-slate-100 dark:ring-white/10">
           {showImage ? (
             <Image
+              referrerPolicy="no-referrer"
               src={comment.userImage}
               alt={comment.userName}
               width={48}

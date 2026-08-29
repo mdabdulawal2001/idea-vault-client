@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import { FaGoogle } from "@react-icons/all-files/fa/FaGoogle";
+import { authClient } from "@/lib/auth-client";
 
 const GoogleLoginButton = () => {
-  const handleGoogleLogin = () => {
-    // Better Auth Google login will be added here later.
-    console.log("Google Login");
-  };
+  // login with google
+  const handleGoogleLogin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    })
+  }
 
   return (
     <div className="mt-6 w-full">

@@ -22,6 +22,7 @@ const UserAvatar = ({ user, size = "sm" }) => {
     >
       {showImage ? (
         <Image
+          referrerPolicy="no-referrer"
           src={user.image}
           alt={user?.name || "User"}
           fill

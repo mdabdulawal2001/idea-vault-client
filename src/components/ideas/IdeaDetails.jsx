@@ -80,6 +80,7 @@ const IdeaDetails = ({ idea }) => {
                 <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-blue-100 shadow-md dark:border-slate-800 dark:bg-slate-800">
                   {showPhoto ? (
                     <Image
+                      referrerPolicy="no-referrer"
                       src={idea.authorPhoto}
                       alt={idea.authorName}
                       fill
@@ -115,6 +116,7 @@ const IdeaDetails = ({ idea }) => {
 
                 <div className="relative h-72 overflow-hidden rounded-3xl shadow-xl shadow-blue-500/10 sm:h-80 lg:h-96">
                   <Image
+                    referrerPolicy="no-referrer"
                     src={idea.imageURL}
                     alt={idea.title}
                     fill
@@ -251,6 +253,7 @@ const IdeaDetails = ({ idea }) => {
                 <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border-2 border-blue-100 bg-blue-100 dark:border-blue-500/20 dark:bg-slate-800">
                   {showPhoto ? (
                     <Image
+                      referrerPolicy="no-referrer"
                       src={idea.authorPhoto}
                       alt={idea.authorName}
                       fill

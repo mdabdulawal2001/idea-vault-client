@@ -101,6 +101,7 @@ const ProfileCard = ({ user, onEdit }) => {
             <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-cyan-400 to-blue-600 text-2xl font-extrabold text-white shadow-lg shadow-blue-500/20 ring-4 ring-blue-50 transition-transform duration-300 group-hover:scale-[1.03] dark:ring-blue-500/10">
               { showImage? (
                 <Image
+                  referrerPolicy="no-referrer"
                   src={user.image}
                   alt={user?.name || "User"}
                   fill

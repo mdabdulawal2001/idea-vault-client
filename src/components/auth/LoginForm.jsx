@@ -16,9 +16,10 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Link from "next/link";
 
 const LoginForm = () => {
-   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -61,6 +62,13 @@ const LoginForm = () => {
 
       toast.error("Something went wrong ❌");
     }
+  };
+
+  // login with google
+  const handleGoogleLogin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
   };
 
   return (
@@ -153,9 +161,20 @@ const LoginForm = () => {
                   return "Password is required";
                 }
 
-                if (value.length < 8) {
-                  return "Password must be at least 8 characters";
-                }
+                if (value.length < 6) {
+                return "Password must be at least 6 characters";
+              }
+
+              if (!/[A-Z]/.test(value)) {
+                return "Password must contain at least one uppercase letter";
+              }
+              if (!/[a-z]/.test(value)) {
+                return "Password must contain at least one lowercase letter";
+              }
+
+              if (!/[0-9]/.test(value)) {
+                return "Password must contain at least one number";
+              }
 
                 return null;
               }}
@@ -175,11 +194,11 @@ const LoginForm = () => {
 
               <FieldError />
               <span
-                  className="cursor-pointer absolute right-3 top-74 md:top-73.75"
-                  onClick={() => setIsShowPassword(!isShowPassword)}
-                >
-                  {isShowPassword ? <FaEye></FaEye> : <FaEyeSlash />}
-                </span>
+                className="cursor-pointer absolute right-3 top-74 md:top-73.75"
+                onClick={() => setIsShowPassword(!isShowPassword)}
+              >
+                {isShowPassword ? <FaEye></FaEye> : <FaEyeSlash />}
+              </span>
             </TextField>
 
             {/* Forgot Password */}
@@ -198,10 +217,17 @@ const LoginForm = () => {
               className="h-12 w-full cursor-pointer rounded-xl bg-blue-600 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] dark:bg-blue-500 dark:hover:bg-blue-600"
             >
               <LogIn className="h-4 w-4" />
-              Sign In
+              Login
             </Button>
           </Form>
           <GoogleLoginButton />
+          {/* FOOTER */}
+          <p className="text-center text-sm text-gray-500 mt-6">
+            Don’t have an account?{" "}
+            <Link href="/register" className="text-blue-500 cursor-pointer">
+              Register
+            </Link>
+          </p>
         </div>
       </motion.div>
     </motion.div>

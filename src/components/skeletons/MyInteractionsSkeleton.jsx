@@ -102,39 +102,39 @@ const CommentCardSkeleton = () => {
         bg-slate-50
         p-5
         dark:border-slate-800
-        dark:bg-slate-950
+        dark:bg-slate-950!
       "
     >
       <div className="flex items-start gap-4">
         {/* Avatar */}
 
-        <div className="h-11 w-11 shrink-0 animate-pulse rounded-full bg-slate-200 dark:bg-slate-800" />
+        <div className="h-11 w-11 shrink-0 animate-pulse rounded-full bg-slate-200 dark:bg-slate-800!" />
 
         <div className="min-w-0 flex-1">
           {/* Name + Date */}
 
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="h-4 w-32 animate-pulse rounded-md bg-slate-200 dark:bg-slate-800" />
+            <div className="h-4 w-32 animate-pulse rounded-md bg-slate-200 dark:bg-slate-800!" />
 
-            <div className="h-3 w-20 animate-pulse rounded-md bg-slate-200 dark:bg-slate-800" />
+            <div className="h-3 w-20 animate-pulse rounded-md bg-slate-200 dark:bg-slate-800!" />
           </div>
 
           {/* Comment */}
 
           <div className="mt-4 space-y-2">
-            <div className="h-3 w-full animate-pulse rounded-md bg-slate-200 dark:bg-slate-800" />
+            <div className="h-3 w-full animate-pulse rounded-md bg-slate-200 dark:bg-slate-800!" />
 
-            <div className="h-3 w-[90%] animate-pulse rounded-md bg-slate-200 dark:bg-slate-800" />
+            <div className="h-3 w-[90%] animate-pulse rounded-md bg-slate-200 dark:bg-slate-800!" />
 
-            <div className="h-3 w-[65%] animate-pulse rounded-md bg-slate-200 dark:bg-slate-800" />
+            <div className="h-3 w-[65%] animate-pulse rounded-md bg-slate-200 dark:bg-slate-800!" />
           </div>
 
           {/* Actions */}
 
           <div className="mt-5 flex gap-3">
-            <div className="h-8 w-16 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-800" />
+            <div className="h-8 w-16 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-800!" />
 
-            <div className="h-8 w-16 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-800" />
+            <div className="h-8 w-16 animate-pulse rounded-lg bg-slate-200 dark:bg-slate-800!" />
           </div>
         </div>
       </div>

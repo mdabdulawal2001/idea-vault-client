@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Link from "next/link";
 
 const RegisterForm = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -222,12 +223,15 @@ const RegisterForm = () => {
                 return "Password is required";
               }
 
-              if (value.length < 8) {
-                return "Password must be at least 8 characters";
+              if (value.length < 6) {
+                return "Password must be at least 6 characters";
               }
 
               if (!/[A-Z]/.test(value)) {
                 return "Password must contain at least one uppercase letter";
+              }
+              if (!/[a-z]/.test(value)) {
+                return "Password must contain at least one lowercase letter";
               }
 
               if (!/[0-9]/.test(value)) {
@@ -330,6 +334,16 @@ const RegisterForm = () => {
           </Button>
         </Form>
         <GoogleLoginButton />
+        {/* LOGIN LINK */}
+        <p className="text-center text-sm text-gray-500 mt-6">
+          Already have an account?{" "}
+          <Link
+            href={`/login`}
+            className="cursor-pointer text-blue-500 font-medium"
+          >
+            Login
+          </Link>
+        </p>
       </div>
     </motion.div>
   );
