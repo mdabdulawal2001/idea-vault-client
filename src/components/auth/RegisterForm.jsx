@@ -95,9 +95,9 @@ const RegisterForm = () => {
       transition={{ duration: 0.55, ease: "easeOut" }}
       className="mx-auto my-10 w-full md:w-[60%] max-w-lg px-4 sm:my-14 sm:px-6"
     >
-      {/* ================= FORM CARD ================= */}
+      {/* FORM CARD */}
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-blue-500/5 sm:p-8 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none">
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -117,12 +117,12 @@ const RegisterForm = () => {
           </p>
         </motion.div>
 
-        {/* ================= REGISTER FORM ================= */}
+        {/* REGISTER FORM */}
         <Form
           className="flex max-w-7xl mx-auto w-full flex-col gap-5"
           onSubmit={handleSubmit}
         >
-          {/* ================= FULL NAME ================= */}
+          {/* FULL NAME */}
           <TextField
             isRequired
             name="name"
@@ -155,7 +155,7 @@ const RegisterForm = () => {
             <FieldError />
           </TextField>
 
-          {/* ================= EMAIL ================= */}
+          {/* EMAIL */}
           <TextField
             isRequired
             name="email"
@@ -190,7 +190,7 @@ const RegisterForm = () => {
             <FieldError />
           </TextField>
 
-          {/* ================= IMAGE URL ================= */}
+          {/* IMAGE URL */}
           <TextField
             isRequired
             name="image"
@@ -226,7 +226,7 @@ const RegisterForm = () => {
             <FieldError />
           </TextField>
 
-          {/* ================= PASSWORD ================= */}
+          {/* PASSWORD */}
           <TextField
             isRequired
             name="password"
@@ -282,7 +282,7 @@ const RegisterForm = () => {
             <FieldError />
           </TextField>
 
-          {/* ================= CONFIRM PASSWORD ================= */}
+          {/* CONFIRM PASSWORD */}
           <TextField
             isRequired
             name="confirmPassword"
@@ -337,7 +337,7 @@ const RegisterForm = () => {
             <FieldError />
           </TextField>
 
-          {/* ================= SUBMIT ================= */}
+          {/* SUBMIT */}
           <Button
             type="submit"
             className="mt-1 h-12 w-full cursor-pointer rounded-xl bg-blue-600 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] dark:bg-blue-500 dark:hover:bg-blue-600"

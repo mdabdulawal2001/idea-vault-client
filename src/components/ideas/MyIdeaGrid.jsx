@@ -15,9 +15,8 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-  // ==========================================
+
   // OPEN EDIT MODAL
-  // ==========================================
 
   const handleEdit = (idea) => {
     setSelectedIdea(idea);
@@ -27,7 +26,6 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
 
 
   // UPDATE IDEA IN UI
-
 
   const handleIdeaUpdated = (updatedIdea) => {
     setIdeas((prevIdeas) =>
@@ -58,7 +56,7 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
 
   return (
     <section className="mx-auto w-[90%] md:w-full">
-      {/* ================= SECTION HEADER ================= */}
+      {/* ==== SECTION HEADER ===== */}
 
       <div className="mb-7 sm:mb-8">
         <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left">
@@ -79,7 +77,7 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
         </div>
       </div>
 
-      {/* ================= EMPTY STATE ================= */}
+      {/* EMPTY STATE */}
 
       {ideas.length === 0 ? (
         <div className="flex min-h-70 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-12 text-center dark:border-slate-700 dark:bg-slate-900">
@@ -97,7 +95,7 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
           </p>
         </div>
       ) : (
-        /* ================= IDEA GRID ================= */
+        /* IDEA GRID */
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {ideas.map((idea, index) => (
@@ -112,7 +110,7 @@ const MyIdeaGrid = ({ ideas: initialIdeas = [], onDelete }) => {
         </div>
       )}
 
-      {/* ================= EDIT MODAL ================= */}
+      {/*  EDIT MODAL */}
 
       {selectedIdea && (
         <EditIdeaModal

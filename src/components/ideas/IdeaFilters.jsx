@@ -18,8 +18,8 @@ const DEFAULT_FILTERS = {
 
 const IdeaFilters = ({ filters, setFilters, onSearch }) => {
   const currentFilters = filters ?? DEFAULT_FILTERS;
-  
-    const [categories, setCategories] = useState([]);
+
+  const [categories, setCategories] = useState([]);
   // Fetch categories
   useEffect(() => {
     const loadCategories = async () => {
@@ -34,8 +34,7 @@ const IdeaFilters = ({ filters, setFilters, onSearch }) => {
     loadCategories();
   }, []);
 
-
-  // ================= HANDLE INPUT CHANGE =================
+  // HANDLE INPUT CHANGE 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -45,14 +44,14 @@ const IdeaFilters = ({ filters, setFilters, onSearch }) => {
     }));
   };
 
-  // ================= SEARCH =================
+  //  SEARCH 
   const handleSearch = () => {
     onSearch({
       ...currentFilters,
     });
   };
 
-  // ================= RESET =================
+  // RESET
   const handleReset = () => {
     setFilters(DEFAULT_FILTERS);
     onSearch(DEFAULT_FILTERS);
@@ -120,11 +119,11 @@ const IdeaFilters = ({ filters, setFilters, onSearch }) => {
             className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-700 outline-none transition-all duration-300 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:border-blue-500"
           >
             <option value="">All Categories</option>
-             {categories.map((category) => (
-    <option key={category} value={category}>
-      {category}
-    </option>
-  ))}
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
         </div>
 

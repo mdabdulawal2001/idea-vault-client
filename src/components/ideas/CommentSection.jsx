@@ -218,7 +218,7 @@ const CommentSection = ({ idea }) => {
         )}
       </div>
 
-      {/* ================= EDIT MODAL ================= */}
+      {/* EDIT MODAL */}
 
       <CommentEditModal
         comment={editingComment}
@@ -228,7 +228,7 @@ const CommentSection = ({ idea }) => {
         isSaving={isSaving}
       />
 
-      {/* ================= DELETE MODAL ================= */}
+      {/* DELETE MODAL */}
 
       <CommentDeleteModal
         comment={deletingComment}

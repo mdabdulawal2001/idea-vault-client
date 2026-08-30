@@ -58,13 +58,13 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  // ================= AUTH =================
+  // AUTH
 
   const { data: session, isPending } = authClient.useSession();
 
   const user = session?.user;
 
-  // ================= THEME =================
+  // THEME
 
   const currentTheme = theme === "system" ? resolvedTheme : theme;
 
@@ -74,7 +74,7 @@ const Navbar = () => {
     setTheme(isDark ? "light" : "dark");
   };
 
-  // ================= LOGOUT =================
+  //  LOGOUT
 
   const handleLogout = async () => {
     try {
@@ -93,7 +93,7 @@ const Navbar = () => {
     }
   };
 
-  // ================= PROFILE OUTSIDE CLICK =================
+  //  PROFILE OUTSIDE CLICK
 
   useEffect(() => {
     const handlePointerDownOutside = (event) => {
@@ -121,7 +121,7 @@ const Navbar = () => {
     };
   }, [isProfileOpen]);
 
-  // ================= MOBILE MENU =================
+  //  MOBILE MENU
 
   const closeMobileMenu = () => {
     setIsMenuOpen(false);
@@ -160,7 +160,7 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
-  // ================= NAVIGATION =================
+  //  NAVIGATION
 
   const isActive = (href) => {
     if (href === "/") {
@@ -180,9 +180,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* =========================================================
-          NAVBAR
-      ========================================================= */}
+      {/* NAVBAR */}
 
       <header
         className="
@@ -217,9 +215,7 @@ const Navbar = () => {
             max-w-7xl
           "
         >
-          {/* =====================================================
-              LOGO
-          ===================================================== */}
+          {/* LOGO */}
 
           <Link
             href="/"
@@ -272,9 +268,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* =====================================================
-              DESKTOP NAV
-          ===================================================== */}
+          {/* DESKTOP NAV */}
 
           <div className="hidden items-center gap-1 xl:flex">
             {navLinks.map((link) => {
@@ -346,17 +340,10 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* =====================================================
-              DESKTOP RIGHT SIDE
-          ===================================================== */}
+          {/* DESKTOP RIGHT SIDE */}
 
           <div className="hidden items-center gap-2 xl:flex">
-            {/* ===================================================
-                THEME TOGGLE
-
-                No separate white card.
-                It blends with navbar.
-            =================================================== */}
+            {/* THEME TOGGLE */}
 
             <button
               type="button"
@@ -379,7 +366,7 @@ const Navbar = () => {
                 hover:border-blue-300
                 hover:bg-blue-100/60
                 hover:text-blue-600
-
+                cursor-pointer
                 dark:border-slate-700/60
                 dark:bg-slate-900/30
                 dark:text-slate-300
@@ -391,16 +378,12 @@ const Navbar = () => {
               <ThemeToggleIcon isDark={isDark} mounted={mounted} />
             </button>
 
-            {/* ===================================================
-                SESSION LOADING
-            =================================================== */}
+            {/* SESSION LOADING */}
 
             {!mounted || isPending ? (
               <NavbarSessionSpinner />
             ) : !user ? (
-              /* =================================================
-                 LOGGED OUT
-              ================================================= */
+              /* LOGGED OUT */
 
               <div className="ml-1 flex items-center gap-2">
                 <Link
@@ -454,9 +437,7 @@ const Navbar = () => {
                 </Link>
               </div>
             ) : (
-              /* =================================================
-                 LOGGED IN PROFILE
-              ================================================= */
+              /* LOGGED IN PROFILE */
 
               <div ref={profileRef} className="relative ml-1">
                 <button
@@ -478,7 +459,7 @@ const Navbar = () => {
                     duration-300
                     hover:border-blue-300
                     hover:bg-blue-200
-
+                    cursor-pointer
                     dark:border-slate-700/60
                     dark:bg-slate-900/30
                     dark:hover:border-cyan-500/60
@@ -529,9 +510,7 @@ const Navbar = () => {
                   </svg>
                 </button>
 
-                {/* =================================================
-                    PROFILE DROPDOWN
-                ================================================= */}
+                {/* PROFILE DROPDOWN */}
 
                 <AnimatePresence>
                   {isProfileOpen && (
@@ -563,7 +542,7 @@ const Navbar = () => {
                         rounded-2xl
                         border
                         border-slate-200
-                        bg-white/95
+                        bg-white
                         p-2
                         shadow-xl
                         backdrop-blur-xl
@@ -592,7 +571,7 @@ const Navbar = () => {
                             ${
                               isActive("/profile")
                                 ? `
-                                  bg-blue-50
+                                  bg-blue-200
                                   text-blue-60                        0
 
                                   dark:bg-blue-950/50
@@ -600,7 +579,7 @@ const Navbar = () => {
                                 `
                                 : `
                                   text-slate-700
-                                  hover:bg-blue-50
+                                  hover:bg-blue-200
                                   hover:text-blue-60                        0
 
                                   dark:text-slate-200
@@ -633,7 +612,7 @@ const Navbar = () => {
                           text-red-500
                           transition
 
-                          hover:bg-red-50
+                          hover:bg-red-200
 
                           dark:hover:bg-red-950/30
                         "
@@ -648,9 +627,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* =====================================================
-              MOBILE CONTROLS
-          ===================================================== */}
+          {/* MOBILE CONTROLS */}
 
           <div className="flex items-center gap-2 xl:hidden">
             {/* Mobile Theme Toggle */}
@@ -755,20 +732,12 @@ const Navbar = () => {
         </nav>
       </header>
 
-      {/*
-          MOBILE SIDEBAR + BACKDROP
-
-          IMPORTANT:
-          This is OUTSIDE the header.
-
-          Therefore opening it will NOT push the Hero/content down. */}
+      {/* MOBILE SIDEBAR + BACKDROP */}
 
       <AnimatePresence>
         {isMenuOpen && (
           <>
-            {/* =====================================================
-          BACKDROP
-      ===================================================== */}
+            {/* BACKDROP */}
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -829,9 +798,7 @@ const Navbar = () => {
 
               xl:hidden"
             >
-              {/* =================================================
-            SIDEBAR HEADER
-        ================================================= */}
+              {/* SIDEBAR HEADER */}
 
               <div
                 className="
@@ -938,9 +905,7 @@ const Navbar = () => {
                 </button>
               </div>
 
-              {/* =================================================
-            SIDEBAR CONTENT
-        ================================================= */}
+              {/* SIDEBAR CONTENT */}
 
               <div
                 className="
@@ -955,9 +920,7 @@ const Navbar = () => {
             dark:bg-slate-950
           "
               >
-                {/* =================================================
-              MOBILE PROFILE
-          ================================================= */}
+                {/* MOBILE PROFILE */}
 
                 {!mounted || isPending ? (
                   <div className="flex justify-center py-3">
@@ -1097,9 +1060,7 @@ const Navbar = () => {
                   </>
                 ) : null}
 
-                {/* =================================================
-              MOBILE LINKS
-          ================================================= */}
+                {/* MOBILE LINKS */}
 
                 <div className="space-y-1.5">
                   {navLinks.map((link) => {
@@ -1186,9 +1147,7 @@ const Navbar = () => {
             "
                 />
 
-                {/* =================================================
-              MOBILE AUTH
-          ================================================= */}
+                {/* MOBILE AUTH */}
 
                 {isPending ? (
                   <div className="flex justify-center py-2">

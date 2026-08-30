@@ -31,7 +31,8 @@ const MyInteractions = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // ================= GET USER COMMENTS =================
+
+  // ========== GET USER COMMENTS ===========
 
   useEffect(() => {
   if (isPending) return;
@@ -72,13 +73,13 @@ const MyInteractions = () => {
   };
 }, [session?.user?.id, isPending]);
 
-  // ================= EDIT =================
+  // EDIT 
 
   const handleEdit = (comment) => {
     setEditingComment(comment);
   };
 
-  // ================= SAVE EDIT =================
+  // SAVE EDIT
 
   const handleSaveEdit = async (text) => {
     if (!editingComment?._id) return;
@@ -106,13 +107,13 @@ const MyInteractions = () => {
     }
   };
 
-  // ================= DELETE =================
+  // DELETE 
 
   const handleDelete = (comment) => {
     setDeletingComment(comment);
   };
 
-  // ================= CONFIRM DELETE =================
+  // CONFIRM DELETE 
 
   const handleConfirmDelete = async () => {
     if (!deletingComment?._id) return;
@@ -141,7 +142,7 @@ const MyInteractions = () => {
   return (
     <section className="min-h-screen bg-slate-50 py-12 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* ================= PAGE HEADER ================= */}
+        {/* PAGE HEADER */}
 
         <div className="mb-10">
           <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-end sm:justify-between">
@@ -185,7 +186,7 @@ const MyInteractions = () => {
           </div>
         </div>
 
-        {/* ================= COMMENTS CONTAINER ================= */}
+        {/* COMMENTS CONTAINER */}
 
         <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
           {/* Container Header */}
@@ -206,7 +207,7 @@ const MyInteractions = () => {
             </div>
           </div>
 
-          {/* ================= COMMENT LIST ================= */}
+          {/* COMMENT LIST */}
 
           {isLoading ? (
             <div className="py-10 text-center">
@@ -243,7 +244,7 @@ const MyInteractions = () => {
         </div>
       </div>
 
-      {/* ================= EDIT MODAL ================= */}
+      {/* EDIT MODAL */}
 
       <CommentEditModal
         comment={editingComment}
@@ -253,7 +254,7 @@ const MyInteractions = () => {
         isSaving={isSaving}
       />
 
-      {/* ================= DELETE MODAL ================= */}
+      {/* DELETE MODAL */}
 
       <CommentDeleteModal
         comment={deletingComment}

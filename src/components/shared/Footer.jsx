@@ -50,9 +50,7 @@ const Footer = () => {
 
   return (
     <footer className="relative mt-25 overflow-hidden bg-[#06101f] text-slate-300">
-      {/* =====================================================
-          BACKGROUND GLOW & WAVES
-      ===================================================== */}
+      {/* BACKGROUND GLOW & WAVES */}
 
       <div className="pointer-events-none absolute inset-0 select-none overflow-hidden">
         {/* Animated Glow */}
@@ -86,19 +84,14 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* =====================================================
-          FOOTER CONTENT
-      ===================================================== */}
+      {/* FOOTER CONTENT */}
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        {/* =================================================
-            TOP SECTION
-        ================================================= */}
+        {/* TOP SECTION */}
 
         <div className="grid grid-cols-1 gap-10 pb-12 pt-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:pb-12 lg:pt-20">
-          {/* =================================================
-              BRAND
-          ================================================= */}
+
+          {/* BRAND */}
 
           <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
             <Link
@@ -126,9 +119,7 @@ const Footer = () => {
               possibilities.
             </p>
 
-            {/* =================================================
-                SOCIAL ICONS
-            ================================================= */}
+            {/* SOCIAL ICONS */}
 
             <div className="mt-6 flex items-center gap-3">
               {socialLinks.map((social) => {
@@ -181,9 +172,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* =================================================
-              PLATFORM LINKS
-          ================================================= */}
+          {/* PLATFORM LINKS */}
 
           <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200">
@@ -227,9 +216,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* =================================================
-              CATEGORIES
-          ================================================= */}
+          {/* CATEGORIES */}
 
           <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200">
@@ -273,9 +260,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* =================================================
-              CONTACT
-          ================================================= */}
+          {/* CONTACT */}
 
           <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200">
@@ -376,9 +361,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* =================================================
-            BOTTOM BAR
-        ================================================= */}
+        {/* BOTTOM BAR */}
 
         <div
           className="

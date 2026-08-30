@@ -19,7 +19,7 @@ const IdeaCard = ({ idea, index = 0 }) => {
       whileHover={{ y: -5 }}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-500/10 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-900"
     >
-      {/* ================= IMAGE ================= */}
+      {/* IMAGE */}
       <div className="relative h-48 w-full overflow-hidden">
   <Image
     src={idea?.imageURL}
@@ -48,7 +48,7 @@ const IdeaCard = ({ idea, index = 0 }) => {
   </div>
 </div>
 
-      {/* ================= CONTENT ================= */}
+      {/* CONTENT  */}
       <div className="flex flex-1 flex-col p-5">
         {/* Title */}
         <h3 className="line-clamp-2 text-lg font-bold leading-6 text-slate-900 transition-colors duration-300 group-hover:text-blue-600 dark:text-white dark:group-hover:text-cyan-400">
@@ -80,7 +80,7 @@ const IdeaCard = ({ idea, index = 0 }) => {
           </div>
         )}
 
-        {/* ================= META ================= */}
+        {/* META */}
         <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4 dark:border-slate-800">
           {/* Audience */}
           <div className="flex min-w-0 items-center gap-2">

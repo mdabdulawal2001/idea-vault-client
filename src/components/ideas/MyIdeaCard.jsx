@@ -25,7 +25,7 @@ const MyIdeaCard = ({ idea, index = 0, onEdit, onDelete }) => {
       whileHover={{ y: -5 }}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-500/10 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-900"
     >
-      {/* ================= IMAGE ================= */}
+      {/* IMAGE  */}
 
       <div className="relative h-48 w-full overflow-hidden">
         <Image
@@ -53,7 +53,7 @@ const MyIdeaCard = ({ idea, index = 0, onEdit, onDelete }) => {
         </div>
       </div>
 
-      {/* ================= CONTENT ================= */}
+      {/* ======== CONTENT ========= */}
 
       <div className="flex flex-1 flex-col p-5">
         {/* Title */}
@@ -89,7 +89,7 @@ const MyIdeaCard = ({ idea, index = 0, onEdit, onDelete }) => {
           </div>
         )}
 
-        {/* ================= META ================= */}
+        {/* ====== META ===== */}
 
         <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4 dark:border-slate-800">
           {/* Audience */}
@@ -131,7 +131,7 @@ const MyIdeaCard = ({ idea, index = 0, onEdit, onDelete }) => {
           </div>
         </div>
 
-        {/* ================= ACTIONS ================= */}
+        {/* ==== ACTIONS ==== */}
 
         <div className="mt-4 grid grid-cols-2 gap-2">
           {/* Edit */}

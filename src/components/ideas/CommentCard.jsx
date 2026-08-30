@@ -17,7 +17,7 @@ const CommentCard = ({ comment, onEdit, onDelete }) => {
 
   return (
     <article className="group rounded-2xl bg-[#eae8e8] p-5 shadow-[0_4px_25px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_35px_rgba(37,99,235,0.15)] dark:border dark:border-slate-800 dark:bg-slate-900! dark:shadow-[0_4px_20px_rgba(0,0,0,0.25)] dark:hover:border-blue-800 dark:hover:shadow-[0_12px_35px_rgba(37,99,235,0.12)]">
-      {/* ================= USER INFO ================= */}
+      {/* USER INFO */}
 
       <div className="flex items-start gap-4">
         {/* Profile Image */}
@@ -61,7 +61,7 @@ const CommentCard = ({ comment, onEdit, onDelete }) => {
         </div>
       </div>
 
-      {/* ================= COMMENT ================= */}
+      {/* COMMENT */}
 
       <div className="relative mt-5 overflow-hidden rounded-xl bg-[#e5e1e1] p-4 shadow-inner transition-all duration-300 dark:border dark:border-slate-800 dark:bg-slate-800/80 dark:group-hover:border-blue-900">
         <div className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full bg-blue-200/20 blur-2xl dark:bg-blue-500/10" />
@@ -71,7 +71,7 @@ const CommentCard = ({ comment, onEdit, onDelete }) => {
         </p>
       </div>
 
-      {/* ================= IDEA + ACTIONS ================= */}
+      {/* IDEA + ACTIONS */}
 
       <div className="mt-4 flex flex-col gap-3 pt-4 dark:border-t dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
         {/* Idea */}

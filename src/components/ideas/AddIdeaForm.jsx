@@ -52,9 +52,9 @@ const AddIdeaForm = () => {
 
   const user = session?.user;
 
-  // ==========================================
+
   // HANDLE INPUT CHANGE
-  // ==========================================
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,9 +65,8 @@ const AddIdeaForm = () => {
     }));
   };
 
-  // ==========================================
+
   // HANDLE CATEGORY
-  // ==========================================
 
   const handleCategoryChange = (e) => {
     const value = e.target.value;
@@ -79,17 +78,17 @@ const AddIdeaForm = () => {
     }));
   };
 
-  // ==========================================
+
   // RESET FORM
-  // ==========================================
+
 
   const handleReset = () => {
     setFormData(initialFormData);
   };
 
-  // ==========================================
+
   // SUBMIT FORM
-  // ==========================================
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -167,9 +166,7 @@ const AddIdeaForm = () => {
         dark:to-[#0a1d35]
       "
     >
-      {/* ========================================
-          BACKGROUND DECORATION
-      ========================================= */}
+      {/* BACKGROUND DECORATION */}
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
@@ -201,9 +198,7 @@ const AddIdeaForm = () => {
       </div>
 
       <div className="relative mx-auto w-full max-w-5xl">
-        {/* ========================================
-            PAGE HEADER
-        ========================================= */}
+        {/* PAGE HEADER */}
 
         <div
           className="mb-8 sm:mb-10 lg:mb-12
@@ -270,9 +265,7 @@ const AddIdeaForm = () => {
           </p>
         </div>
 
-        {/* ========================================
-            FORM CARD
-        ========================================= */}
+        {/* FORM CARD */}
 
         <div
           className="
@@ -292,11 +285,10 @@ const AddIdeaForm = () => {
           "
         >
           <form onSubmit={handleSubmit}>
-            {/* ======================================
-                BASIC INFORMATION
-            ======================================= */}
+            {/* BASIC INFORMATION */}
 
             <div className="p-5 sm:p-7 lg:p-9">
+
               {/* Section Header */}
 
               <div className="mb-8">
@@ -331,6 +323,7 @@ const AddIdeaForm = () => {
               {/* Fields */}
 
               <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
+                
                 {/* IDEA TITLE */}
 
                 <FormField label="Idea Title" required>
@@ -579,9 +572,7 @@ const AddIdeaForm = () => {
               </div>
             </div>
 
-            {/* ======================================
-                IDEA DETAILS
-            ======================================= */}
+            {/* IDEA DETAILS */}
 
             <div
               className="
@@ -752,9 +743,7 @@ const AddIdeaForm = () => {
               </div>
             </div>
 
-            {/* ======================================
-                ACTION AREA
-            ======================================= */}
+            {/* ACTION AREA */}
 
             <div
               className="

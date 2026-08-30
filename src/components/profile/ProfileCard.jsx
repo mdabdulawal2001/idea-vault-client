@@ -88,12 +88,12 @@ const ProfileCard = ({ user, onEdit }) => {
       transition={{ duration: 0.45, ease: "easeOut" }}
       className="group mx-auto w-[90%] md:w-full mt-10 mb-10 max-w-4xl overflow-hidden rounded-3xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 dark:bg-slate-900"
     >
-      {/* ================= TOP ACCENT ================= */}
+      {/* TOP ACCENT */}
 
       <div className="h-5 w-full bg-linear-to-r from-cyan-400 via-blue-500 to-blue-600" />
 
       <div className="p-5 sm:p-7 lg:p-8">
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
 
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           {/* User */}
@@ -153,11 +153,11 @@ const ProfileCard = ({ user, onEdit }) => {
           />
         </div>
 
-        {/* ================= DIVIDER ================= */}
+        {/* DIVIDER */}
 
         <div className="my-7 h-px bg-slate-100 dark:bg-slate-800" />
 
-        {/* ================= INFO ================= */}
+        {/* INFO */}
 
         <div className="grid gap-4 sm:grid-cols-2">
           <ProfileInfo
@@ -190,7 +190,7 @@ const ProfileCard = ({ user, onEdit }) => {
   );
 };
 
-/* ================= INFO ITEM ================= */
+/* INFO ITEM */
 
 const ProfileInfo = ({ icon, label, value, status }) => {
   return (

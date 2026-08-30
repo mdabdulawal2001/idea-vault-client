@@ -21,7 +21,7 @@ const IdeasAllCards = () => {
 
   const [loading, setLoading] = useState(true);
 
-  // ================= FETCH IDEAS =================
+  // ======== FETCH IDEAS ==========
   const fetchIdeas = async (currentFilters = DEFAULT_FILTERS) => {
     try {
       setLoading(true);
@@ -38,7 +38,7 @@ const IdeasAllCards = () => {
     }
   };
 
-  // ================= INITIAL LOAD =================
+  // ==== INITIAL LOAD ====
   useEffect(() => {
     let ignore = false;
 
@@ -67,7 +67,7 @@ const IdeasAllCards = () => {
     };
   }, []);
 
-  // ================= SEARCH / FILTER =================
+  // ============= SEARCH / FILTER ===============
   const handleSearch = async (searchFilters) => {
     setFilters(searchFilters);
 
@@ -77,7 +77,7 @@ const IdeasAllCards = () => {
   return (
     <section className="bg-slate-50 py-16 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ================= SECTION HEADING ================= */}
+        {/* SECTION HEADING */}
         <div className="mb-10 flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
           <div>
             <p className="mb-2 text-sm font-bold uppercase tracking-[0.18em] text-blue-600 dark:text-cyan-400">
@@ -94,7 +94,7 @@ const IdeasAllCards = () => {
             </p>
           </div>
 
-          {/* ================= TOTAL IDEAS ================= */}
+          {/* TOTAL IDEAS */}
           <div className="shrink-0">
             <span className="inline-flex rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
               {ideas.length} Ideas
@@ -102,18 +102,18 @@ const IdeasAllCards = () => {
           </div>
         </div>
 
-        {/* ================= IDEA FILTERS ================= */}
+        {/* IDEA FILTERS */}
         <IdeaFilters
           filters={filters}
           setFilters={setFilters}
           onSearch={handleSearch}
         />
 
-        {/* ================= LOADING ================= */}
+        {/* LOADING */}
         {loading ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"> {Array.from({ length: 6 }).map((_, index) => ( <IdeaCardSkeleton key={index} /> ))} </div>
         ) : ideas.length > 0 ? (
-          /* ================= IDEAS GRID ================= */
+          /* IDEAS GRID  */
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {ideas.map((idea, index) => (
               <IdeaCard
@@ -124,7 +124,7 @@ const IdeasAllCards = () => {
             ))}
           </div>
         ) : (
-          /* ================= EMPTY STATE ================= */
+          /*  EMPTY STATE  */
           <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white px-6 text-center dark:border-slate-700 dark:bg-slate-900">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-cyan-400">
               <SearchX className="h-7 w-7" />

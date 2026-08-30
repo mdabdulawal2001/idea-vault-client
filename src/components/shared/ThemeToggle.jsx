@@ -78,7 +78,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 shadow-sm backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90 mx-auto">
       <nav className="mx-auto flex min-h-19 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
 
-        {/* ================= LOGO ================= */}
+        {/* LOGO */}
 
         <Link
           href="/"
@@ -106,7 +106,7 @@ const Navbar = () => {
           </div>
         </Link>
 
-        {/* ================= DESKTOP NAV ================= */}
+        {/* DESKTOP NAV */}
 
         <div className="hidden items-center gap-1 xl:flex">
           {navLinks.map((link) => {
@@ -140,7 +140,7 @@ const Navbar = () => {
           })}
         </div>
 
-        {/* ================= DESKTOP RIGHT SIDE ================= */}
+        {/*  DESKTOP RIGHT SIDE  */}
 
         <div className="hidden items-center gap-2 xl:flex">
 
@@ -184,7 +184,7 @@ const Navbar = () => {
               )}
           </button>
 
-          {/* ================= LOGGED OUT ================= */}
+          {/* LOGGED OUT */}
 
           {!user ? (
             <div className="ml-1 flex items-center gap-2">
@@ -210,7 +210,7 @@ const Navbar = () => {
             </div>
           ) : (
 
-            /* ================= PROFILE ================= */
+            /*  PROFILE */
 
             <div className="relative ml-1">
 
@@ -295,7 +295,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* ================= MOBILE CONTROLS ================= */}
+        {/* MOBILE CONTROLS */}
 
         <div className="flex items-center gap-2 xl:hidden">
 
@@ -380,7 +380,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* ================= MOBILE MENU ================= */}
+      {/* MOBILE MENU */}
 
       <AnimatePresence>
         {isMenuOpen && (

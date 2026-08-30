@@ -34,7 +34,7 @@ const IdeaDetails = ({ idea }) => {
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      {/* ================= HERO ================= */}
+      {/* HERO */}
       <section className="relative overflow-hidden border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
         <div className="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -75,7 +75,7 @@ const IdeaDetails = ({ idea }) => {
                 {idea.shortDescription}
               </p>
 
-              {/* ================= HERO CREATOR ================= */}
+              {/* HERO CREATOR */}
               <div className="mt-7 flex items-center gap-3">
                 <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-blue-100 shadow-md dark:border-slate-800 dark:bg-slate-800">
                   {showPhoto ? (
@@ -142,7 +142,7 @@ const IdeaDetails = ({ idea }) => {
         </div>
       </section>
 
-      {/* ================= MAIN CONTENT ================= */}
+      {/* MAIN CONTENT */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-3">
           {/* LEFT */}
@@ -310,7 +310,7 @@ const IdeaDetails = ({ idea }) => {
           </aside>
         </div>
 
-        {/* ================= COMMENTS ================= */}
+        {/* COMMENTS */}
         <motion.section
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -325,9 +325,7 @@ const IdeaDetails = ({ idea }) => {
   );
 };
 
-/* ============================================================
-   SMALL REUSABLE COMPONENTS
-============================================================ */
+/* SMALL REUSABLE COMPONENTS  */
 
 const Accent = ({ children }) => (
   <span className="text-blue-600 dark:text-cyan-400">{children}</span>
