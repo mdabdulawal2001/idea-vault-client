@@ -18,7 +18,7 @@ const MyIdeasPage = async () => {
 
   const ideas = await getMyIdeas();
   return (
-      <div className="max-w-350 mx-auto my-10 md:my-14">
+      <div className="max-w-300 mx-auto my-10 md:my-14">
         <MyIdeaGrid ideas={ideas} />
       </div>
   );
