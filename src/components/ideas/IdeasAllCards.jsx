@@ -21,7 +21,7 @@ const IdeasAllCards = () => {
 
   const [loading, setLoading] = useState(true);
 
-  // ======== FETCH IDEAS ==========
+  // FETCH IDEAS 
   const fetchIdeas = async (currentFilters = DEFAULT_FILTERS) => {
     try {
       setLoading(true);

@@ -1,4 +1,5 @@
-import IdeasAllCards from "@/components/Ideas/IdeasAllCards";
+import IdeasAllCards from "@/components/ideas/IdeasAllCards";
+
 
 export const metadata = {
   title: "Explore Ideas",

@@ -1,6 +1,6 @@
 import { getIdeaById } from "@/services/ideaService";
-import IdeaDetails from "@/components/Ideas/IdeaDetails";
 import { requireAuth } from "@/lib/requireAuth";
+import IdeaDetails from "@/components/ideas/IdeaDetails";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
