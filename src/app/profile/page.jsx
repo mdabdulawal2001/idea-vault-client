@@ -18,7 +18,7 @@ const ProfilePage = async () => {
   const user = data?.user;
 
   return (
-    <div className="md:mt-[80px]">
+    <div className="md:mt-20">
       <ProfileCard user={user} />
     </div>
   );

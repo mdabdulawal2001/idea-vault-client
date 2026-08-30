@@ -1,7 +1,16 @@
+"use client"
 import ProfileSkeleton from "@/components/skeletons/ProfileSkeleton";
-import { div } from "framer-motion/client";
+import { useEffect } from "react";
+
 
 const Loading = () => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, []);
   return (
     <div className="md:mt-20">
       <ProfileSkeleton />;

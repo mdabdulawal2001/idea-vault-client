@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   UserRound,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProfileEditModal from "./ProfileEditModal";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
@@ -80,6 +80,14 @@ const ProfileCard = ({ user, onEdit }) => {
         year: "numeric",
       })
     : "Recently";
+
+      useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, []);
 
   return (
     <motion.section
