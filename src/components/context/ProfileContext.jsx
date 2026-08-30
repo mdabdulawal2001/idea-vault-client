@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { authClient } from "@/lib/auth-client";
 import { getProfile } from "@/services/profileService";
+import { authClient } from "@/lib/auth-client";
 
 const ProfileContext = createContext(null);
 
