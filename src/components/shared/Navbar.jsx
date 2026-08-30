@@ -14,6 +14,7 @@ import NavbarSessionSpinner from "./NavbarSessionSpinner";
 import UserAvatar from "./UserAvatar";
 import toast from "react-hot-toast";
 import ThemeToggleIcon from "./ThemeToggleIcon";
+import { useProfile } from "@/components/context/ProfileContext";
 
 const navLinks = [
   {
@@ -41,6 +42,7 @@ const navLinks = [
 const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const { profile } = useProfile();
 
   const profileRef = useRef(null);
   const mobileMenuRef = useRef(null);
@@ -168,9 +170,13 @@ const Navbar = () => {
     return pathname.startsWith(href);
   };
 
-  // ================= USER INFO =================
+  // profile link active
+  const profileActive = isActive("/profile");
 
+  // ================= USER INFO =================
   const userName = user?.name?.trim() || "User";
+  const profileName = profile?.name?.trim() || "User";
+  const profileImage = profile?.image || null;
 
   return (
     <>
@@ -481,7 +487,14 @@ const Navbar = () => {
                 >
                   {/* USER AVATAR */}
 
-                  <UserAvatar user={user} size="sm" />
+                  <UserAvatar
+                    user={{
+                      ...user,
+                      name: profile?.name || user?.name,
+                      image: profile?.image || user?.image,
+                    }}
+                    size="sm"
+                  />
 
                   <span
                     className="
@@ -491,7 +504,7 @@ const Navbar = () => {
                       dark:text-slate-200
                     "
                   >
-                    {userName}
+                    {profile?.name || user?.name || "User"}
                   </span>
 
                   <svg
@@ -564,25 +577,38 @@ const Navbar = () => {
                       <Link
                         href="/profile"
                         onClick={() => setIsProfileOpen(false)}
-                        className="
-                          flex
-                          items-center
-                          gap-3
-                          rounded-xl
-                          px-4
-                          py-3
-                          text-sm
-                          font-medium
-                          text-slate-700
-                          transition
+                        className={`
+                            flex
+                            items-center
+                            gap-3
+                            rounded-xl
+                            px-4
+                            py-3
+                            text-sm
+                            font-medium
+                            transition-all
+                            duration-200
 
-                          hover:bg-blue-50
-                          hover:text-blue-600
+                            ${
+                              isActive("/profile")
+                                ? `
+                                  bg-blue-50
+                                  text-blue-60                        0
 
-                          dark:text-slate-200
-                          dark:hover:bg-slate-800
-                          dark:hover:text-cyan-400
-                        "
+                                  dark:bg-blue-950/50
+                                  dark:text-cyan-400
+                                `
+                                : `
+                                  text-slate-700
+                                  hover:bg-blue-50
+                                  hover:text-blue-60                        0
+
+                                  dark:text-slate-200
+                                  dark:hover:bg-slate-800
+                                  dark:hover:text-cyan-400
+                            `
+                            }
+                          `}
                       >
                         <UserRound className="h-4 w-4" />
                         Profile Management
@@ -729,14 +755,13 @@ const Navbar = () => {
         </nav>
       </header>
 
-      {/* =========================================================
+      {/*
           MOBILE SIDEBAR + BACKDROP
 
           IMPORTANT:
           This is OUTSIDE the header.
 
-          Therefore opening it will NOT push the Hero/content down.
-      ========================================================= */}
+          Therefore opening it will NOT push the Hero/content down. */}
 
       <AnimatePresence>
         {isMenuOpen && (
@@ -761,9 +786,7 @@ const Navbar = () => {
         "
             />
 
-            {/* =====================================================
-          RIGHT SIDEBAR
-      ===================================================== */}
+            {/* RIGHT SIDEBAR */}
 
             <motion.aside
               ref={mobileMenuRef}
@@ -782,30 +805,29 @@ const Navbar = () => {
                 damping: 35,
               }}
               className="
-          fixed
-          right-0
-          top-0
-          z-60
+                fixed
+                right-0
+                top-0
+                z-60
 
-          h-dvh
-          w-[68%]
-          max-w-[320px]
+                h-dvh
+                w-[68%]
+                max-w-[320px]
 
-          overflow-hidden
+                overflow-hidden
 
-          border-l
-          border-slate-200
+                border-l
+               border-slate-200
 
-          bg-white
+              bg-white
 
-          shadow-2xl
-          shadow-slate-900/25
+                shadow-2xl
+                shadow-slate-900/25
 
-          dark:border-slate-800
-          dark:bg-slate-950!
+              dark:border-slate-800
+              dark:bg-slate-950!
 
-          xl:hidden
-        "
+              xl:hidden"
             >
               {/* =================================================
             SIDEBAR HEADER
@@ -974,7 +996,14 @@ const Navbar = () => {
                   dark:to-slate-900
                 "
                     >
-                      <UserAvatar user={user} size="lg" />
+                      <UserAvatar
+                        user={{
+                          ...user,
+                          name: profile?.name || user?.name,
+                          image: profile?.image || user?.image,
+                        }}
+                        size="lg"
+                      />
 
                       <p
                         className="
@@ -986,7 +1015,7 @@ const Navbar = () => {
                     dark:text-white
                   "
                       >
-                        {userName}
+                        {profile?.name || user?.name || "User"}
                       </p>
 
                       {user.email && (
@@ -1011,34 +1040,46 @@ const Navbar = () => {
                     <Link
                       href="/profile"
                       onClick={closeMobileMenu}
-                      className="
-                  flex
-                  items-center
-                  gap-3
+                      className={`
+                        flex
+                        items-center
+                        gap-3
+                        rounded-xl
+                        border
+                        px-4
+                        py-3
+                        text-sm
+                        font-semibold
+                        transition-all
+                        duration-200
 
-                  rounded-xl
-
-                  border
-
-                  px-4
-                  py-3
-                  animate-pulse
-                  text-sm
-                  font-semibold
-                  text-slate-700
-                  cursor-pointer
-                  transition-all
-                  duration-200
-
-                  hover:border-blue-100
-                  hover:bg-blue-50
-                  hover:text-blue-600
-
-                  dark:text-slate-200
-                  dark:hover:border-blue-900/50
-                  dark:hover:bg-blue-950/50
-                  dark:hover:text-cyan-400
-                "
+                        ${
+                          isActive("/profile")
+                            ? `
+                              border-blue-200
+                              bg-blue-50
+                              text-blue-600
+                              shadow-sm
+                        
+                              dark:border-blue-800/70
+                              dark:bg-blue-950/60
+                              dark:text-cyan-400
+                            `
+                            : `
+                              border-transparent
+                              text-slate-700
+                        
+                              hover:border-blue-100
+                              hover:bg-blue-50
+                              hover:text-blue-600
+                        
+                              dark:text-slate-200
+                              dark:hover:border-slate-800
+                              dark:hover:bg-slate-900
+                              dark:hover:text-cyan-400
+                            `
+                        }
+                      `}
                     >
                       <UserRound className="h-4 w-4" />
                       Profile Management

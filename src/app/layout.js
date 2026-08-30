@@ -3,6 +3,8 @@ import ThemeProvider from "@/providers/ThemeProvider";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "react-hot-toast";
+import { ProfileProvider } from "@/components/context/ProfileContext";
+
 
 // app/layout.jsx
 
@@ -15,7 +17,8 @@ export const metadata = {
     "Share, discover, and explore innovative startup ideas with the IdeaVault community.",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout ({ children }) {
+
   return (
     <html
       lang="en"
@@ -24,8 +27,10 @@ export default function RootLayout({ children }) {
     >
       <body>
         <ThemeProvider>
+          <ProfileProvider>
           <Navbar />
           <main>{children}</main>
+          </ProfileProvider>
           <Footer />
         </ThemeProvider>
         <Toaster />

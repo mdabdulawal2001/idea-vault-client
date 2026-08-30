@@ -15,11 +15,13 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { updateProfile } from "@/services/profileService";
+import { useProfile } from "../context/ProfileContext";
 
 
 const ProfileCard = ({ user, onEdit }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const { setProfile } = useProfile();
 
   const router = useRouter();
   const handleProfileUpdate = async (formData) => {
@@ -42,10 +44,11 @@ const ProfileCard = ({ user, onEdit }) => {
       //   name,
       //   image: image || null,
       // });
+      
       const data = await updateProfile({
-      name,
-      image: image || null,
-    });
+        name,
+        image: image || null,
+      });
 
       // if (error) {
       //   console.error("Profile update error:", error);
@@ -53,8 +56,8 @@ const ProfileCard = ({ user, onEdit }) => {
       //   return;
       // }
 
+      setProfile(data.user);
       console.log("Updated user:", data);
-
       toast.success("Profile updated successfully");
 
       // Close modal
@@ -99,7 +102,7 @@ const ProfileCard = ({ user, onEdit }) => {
             {/* Avatar */}
 
             <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-cyan-400 to-blue-600 text-2xl font-extrabold text-white shadow-lg shadow-blue-500/20 ring-4 ring-blue-50 transition-transform duration-300 group-hover:scale-[1.03] dark:ring-blue-500/10">
-              { showImage? (
+              {showImage ? (
                 <Image
                   referrerPolicy="no-referrer"
                   src={user.image}
@@ -109,9 +112,7 @@ const ProfileCard = ({ user, onEdit }) => {
                   className="object-cover"
                 />
               ) : (
-                <span>
-                  {firstLetter}
-                </span>
+                <span>{firstLetter}</span>
               )}
             </div>
 

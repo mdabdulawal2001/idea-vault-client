@@ -127,6 +127,5 @@ export const updateProfile = async (profileData) => {
       data.message || "Failed to update profile"
     );
   }
-
   return data;
 };
