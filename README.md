@@ -80,15 +80,15 @@ The project is divided into two separate applications:
 # 📸 Screenshots
 
 <p align="center">
-  <img src="IMAGE_URL_1" alt="IdeaVault Home Page" width="900" />
+  <img width="1478" height="677" alt="Screenshot 2026-08-31 140137" src="https://github.com/user-attachments/assets/d759bb90-ceb6-4570-80d8-52005f70c495" />
 </p>
 
 <p align="center">
-  <img src="IMAGE_URL_2" alt="IdeaVault Ideas Page" width="900" />
+  <img width="987" height="471" alt="Screenshot 2026-08-31 140333" src="https://github.com/user-attachments/assets/754395bd-7cf7-4370-ad6c-90adf4dbe025" />
 </p>
 
 <p align="center">
-  <img src="IMAGE_URL_3" alt="IdeaVault Profile and Idea Details" width="900" />
+  <img width="1192" height="530" alt="Screenshot 2026-08-31 140353" src="https://github.com/user-attachments/assets/1dcbf9e3-5aac-4b47-87ca-49b8e0b2530d" />
 </p>
 
 
