@@ -1,13 +1,6 @@
 # 💡 IdeaVault — Modern Idea Management Platform
 
 <p align="center">
-  <img src="https://img.shields.io/badge/IdeaVault-Idea%20Management-blue?style=for-the-badge" alt="IdeaVault" />
-  <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/Node.js-Backend-green?style=for-the-badge&logo=node.js" alt="Node.js" />
-  <img src="https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb" alt="MongoDB" />
-</p>
-
-<p align="center">
   A modern, full-stack idea management platform built with Next.js, React, Node.js, Express.js, MongoDB, and Better Auth.
 </p>
 
@@ -63,48 +56,41 @@ The project is divided into two separate applications:
 <p align="center">
 
 <a href="https://idea-vault-client-three.vercel.app/" target="_blank">
-  <img src="https://img.shields.io/badge/🌐%20Live%20Frontend-Visit%20Website-0A66C2?style=for-the-badge" alt="Live Frontend" />
+  <img src="https://img.shields.io/badge/🚀%20Live%20Frontend-Visit%20Website-brightgreen?style=for-the-badge&logo=vercel" alt="Live Frontend" />
 </a>
 
 <a href="https://idea-vault-server-chi.vercel.app/" target="_blank">
-  <img src="https://img.shields.io/badge/⚙️%20Live%20Backend-API-success?style=for-the-badge" alt="Live Backend" />
+  <img src="https://img.shields.io/badge/⚙️%20Live%20Backend-API-success?style=for-the-badge&logo=vercel" alt="Live Backend API" />
 </a>
 
-</p>
-
-<p align="center">
-
 <a href="https://github.com/mdabdulawal2001/idea-vault-client" target="_blank">
-  <img src="https://img.shields.io/badge/💻%20Frontend-Repository-black?style=for-the-badge&logo=github" alt="Frontend Repository" />
+  <img src="https://img.shields.io/badge/💻%20Frontend-GitHub-black?style=for-the-badge&logo=github" alt="Frontend GitHub Repository" />
 </a>
 
 <a href="https://github.com/mdabdulawal2001/idea-vault-server" target="_blank">
-  <img src="https://img.shields.io/badge/🛠️%20Backend-Repository-black?style=for-the-badge&logo=github" alt="Backend Repository" />
+  <img src="https://img.shields.io/badge/🛠️%20Backend-GitHub-black?style=for-the-badge&logo=github" alt="Backend GitHub Repository" />
 </a>
 
 </p>
 
+
 ---
+
 
 # 📸 Screenshots
 
-> Upload your screenshots to a `screenshots` folder inside the repository and use the paths below.
-
 <p align="center">
-  <img src="./screenshots/home.png" alt="IdeaVault Home Page" width="900" />
+  <img src="IMAGE_URL_1" alt="IdeaVault Home Page" width="900" />
 </p>
 
 <p align="center">
-  <img src="./screenshots/ideas.png" alt="IdeaVault Ideas Page" width="900" />
+  <img src="IMAGE_URL_2" alt="IdeaVault Ideas Page" width="900" />
 </p>
 
 <p align="center">
-  <img src="./screenshots/profile.png" alt="IdeaVault Profile Page" width="900" />
+  <img src="IMAGE_URL_3" alt="IdeaVault Profile and Idea Details" width="900" />
 </p>
 
-<p align="center">
-  <img src="./screenshots/idea-details.png" alt="IdeaVault Idea Details Page" width="900" />
-</p>
 
 ---
 
@@ -428,14 +414,15 @@ Authenticated users can:
 * Delete their own ideas
 * View their ideas
 * Publish ideas
+* View idea details
+* Read available comments
 
 Public users can:
 
 * Browse public ideas
 * Search ideas
 * Filter ideas
-* View idea details
-* Read available comments
+
 
 ---
 
@@ -665,46 +652,131 @@ This prevents unauthorized users from directly calling protected API endpoints.
 
 # 🛠️ Technologies Used
 
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=nextjs,react,nodejs,express,mongodb,tailwind,js,html,css" alt="Technologies" />
-</p>
-
----
-
 ## 🎨 Frontend
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=nextjs,react,tailwind,js" alt="Frontend Technologies" />
+  <img src="https://skillicons.dev/icons?i=nextjs,react,tailwindcss,javascript" alt="Frontend Technologies" />
 </p>
 
-* **Next.js 16** — React framework using the App Router
-* **React** — Component-based UI development
-* **Tailwind CSS** — Utility-first responsive styling
-* **HeroUI** — Modern reusable UI components
-* **Framer Motion / Motion** — Smooth animations
-* **Lucide React** — Modern icon system
-* **React Icons** — Additional icon library
-* **React Hot Toast** — Toast notifications
-* **Better Auth** — Authentication and session management
+| Technology          | Purpose                               |
+| ------------------- | ------------------------------------- |
+| **Next.js 16**      | React framework using the App Router  |
+| **React**           | Component-based UI development        |
+| **Tailwind CSS**    | Utility-first responsive styling      |
+| **HeroUI**          | Modern reusable UI components         |
+| **Framer Motion**   | Smooth UI animations                  |
+| **Motion**          | Animation and interaction support     |
+| **Lucide React**    | Modern icon system                    |
+| **React Icons**     | Additional icon library               |
+| **React Hot Toast** | Toast notifications                   |
+| **Better Auth**     | Authentication and session management |
 
 ---
 
 ## ⚙️ Backend
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb" alt="Backend Technologies" />
+  <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb,javascript" alt="Backend Technologies" />
 </p>
 
-* **Node.js** — JavaScript runtime
-* **Express.js** — REST API framework
-* **MongoDB** — NoSQL database
-* **Better Auth** — Authentication and session management
-* **CORS** — Cross-origin request handling
-* **dotenv** — Environment variable management
+| Technology      | Purpose                               |
+| --------------- | ------------------------------------- |
+| **Node.js**     | JavaScript runtime                    |
+| **Express.js**  | REST API framework                    |
+| **MongoDB**     | NoSQL database                        |
+| **Better Auth** | Authentication and session management |
+| **CORS**        | Cross-origin request handling         |
+| **dotenv**      | Environment variable management       |
 
 ---
 
+## 🧩 Additional Tools & Libraries
+
+<p align="center">
+  <img src="https://cdn.simpleicons.org/heroui" height="48" alt="HeroUI" />
+  <img src="https://cdn.simpleicons.org/framer" height="48" alt="Framer Motion" />
+  <img src="https://cdn.simpleicons.org/lucide" height="48" alt="Lucide React" />
+  <img src="https://cdn.simpleicons.org/react" height="48" alt="React Icons" />
+  <img src="https://cdn.simpleicons.org/react" height="48" alt="React Hot Toast" />
+  <img src="https://cdn.simpleicons.org/betterauth" height="48" alt="Better Auth" />
+</p>
+
+<p align="center">
+  <b>HeroUI</b>&nbsp;&nbsp;&nbsp;
+  <b>Framer Motion</b>&nbsp;&nbsp;&nbsp;
+  <b>Lucide React</b>&nbsp;&nbsp;&nbsp;
+  <b>React Icons</b>&nbsp;&nbsp;&nbsp;
+  <b>React Hot Toast</b>&nbsp;&nbsp;&nbsp;
+  <b>Better Auth</b>
+</p>
+
+
 # 📦 Dependencies Used
+
+## 🎨 Frontend Dependencies
+
+<p align="center">
+
+<img src="https://cdn.simpleicons.org/nextdotjs" height="42" alt="Next.js" />
+<img src="https://cdn.simpleicons.org/react" height="42" alt="React" />
+<img src="https://cdn.simpleicons.org/react" height="42" alt="React DOM" />
+<img src="https://cdn.simpleicons.org/betterauth" height="42" alt="Better Auth" />
+<img src="https://cdn.simpleicons.org/heroui" height="42" alt="HeroUI" />
+<img src="https://cdn.simpleicons.org/tailwindcss" height="42" alt="Tailwind CSS" />
+<img src="https://cdn.simpleicons.org/framer" height="42" alt="Framer Motion" />
+<img src="https://cdn.simpleicons.org/framer" height="42" alt="Motion" />
+<img src="https://cdn.simpleicons.org/lucide" height="42" alt="Lucide React" />
+<img src="https://cdn.simpleicons.org/react" height="42" alt="React Icons" />
+<img src="https://cdn.simpleicons.org/react" height="42" alt="React Hot Toast" />
+
+</p>
+
+<p align="center">
+  Next.js • React • React DOM • Better Auth • HeroUI • Tailwind CSS • Framer Motion • Motion • Lucide React • React Icons • React Hot Toast
+</p>
+
+```text
+next
+react
+react-dom
+better-auth
+@heroui/react
+tailwindcss
+framer-motion
+motion
+lucide-react
+react-icons
+react-hot-toast
+```
+
+---
+
+## ⚙️ Backend Dependencies
+
+<p align="center">
+
+<img src="https://cdn.simpleicons.org/nodedotjs" height="42" alt="Node.js" />
+<img src="https://cdn.simpleicons.org/express" height="42" alt="Express.js" />
+<img src="https://cdn.simpleicons.org/mongodb" height="42" alt="MongoDB" />
+<img src="https://cdn.simpleicons.org/betterauth" height="42" alt="Better Auth" />
+<img src="https://cdn.simpleicons.org/cors" height="42" alt="CORS" />
+<img src="https://cdn.simpleicons.org/dotenv" height="42" alt="dotenv" />
+
+</p>
+
+<p align="center">
+  Express • MongoDB • Better Auth • CORS • dotenv
+</p>
+
+```text
+express
+mongodb
+better-auth
+cors
+dotenv
+```
+
+
 
 ## Frontend
 
@@ -838,27 +910,30 @@ Create the required environment files according to your local configuration.
 
 ## Frontend
 
-Example:
+Create a `.env.local` file in the frontend project:
 
 ```env
+NEXT_PUBLIC_SERVER_API_URL=http://localhost:YOUR_BACKEND_PORT
+BETTER_AUTH_SECRET=your_secret_key
 NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:YOUR_BACKEND_PORT
-NEXT_PUBLIC_API_URL=http://localhost:YOUR_BACKEND_PORT
+MONGODB_URI=your_mongodb_connection_string
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
 ## Backend
 
-Example:
+Create a `.env` file in the backend project:
 
 ```env
+PORT=YOUR_BACKEND_PORT
 MONGODB_URI=your_mongodb_connection_string
 BETTER_AUTH_SECRET=your_secret_key
-BETTER_AUTH_URL=http://localhost:YOUR_BACKEND_PORT
-CLIENT_URL=http://localhost:YOUR_FRONTEND_PORT
+NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:YOUR_BACKEND_PORT
 ```
 
-> ⚠️ Never commit real secrets, database credentials, OAuth secrets, or production environment variables to GitHub.
+> ⚠️ **Security Notice:** Never commit real secrets, database credentials, OAuth credentials, API keys, authentication secrets, or production environment variables to GitHub. Use `.env.local` / `.env` files locally and configure production secrets securely through your deployment platform's environment variable settings.
 
----
 
 # ▶️ Run Development Servers
 
@@ -875,38 +950,6 @@ npm run dev
 ```
 
 Then open the frontend in your browser.
-
----
-
-# 🌐 Live Project
-
-<p align="center">
-
-<a href="https://idea-vault-client-three.vercel.app/" target="_blank">
-  <img src="https://img.shields.io/badge/🚀%20Live%20Frontend-Open-brightgreen?style=for-the-badge&logo=vercel" alt="Live Frontend" />
-</a>
-
-<a href="https://idea-vault-server-chi.vercel.app/" target="_blank">
-  <img src="https://img.shields.io/badge/⚙️%20Live%20Backend%20API-Open-success?style=for-the-badge&logo=vercel" alt="Live Backend" />
-</a>
-
-</p>
-
----
-
-# 📂 GitHub Repositories
-
-<p align="center">
-
-<a href="https://github.com/mdabdulawal2001/idea-vault-client" target="_blank">
-  <img src="https://img.shields.io/badge/Frontend%20Repository-GitHub-black?style=for-the-badge&logo=github" alt="Frontend GitHub" />
-</a>
-
-<a href="https://github.com/mdabdulawal2001/idea-vault-server" target="_blank">
-  <img src="https://img.shields.io/badge/Backend%20Repository-GitHub-black?style=for-the-badge&logo=github" alt="Backend GitHub" />
-</a>
-
-</p>
 
 ---
 
