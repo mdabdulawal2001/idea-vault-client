@@ -11,9 +11,7 @@ export const metadata = {
 
 const LoginPage = () => {
   return (
-    <Suspense fallback={loading}>
       <LoginForm />
-    </Suspense>
   );
 };
 
