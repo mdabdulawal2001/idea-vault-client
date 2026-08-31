@@ -715,26 +715,6 @@ This prevents unauthorized users from directly calling protected API endpoints.
 
 ## 🎨 Frontend Dependencies
 
-<p align="center">
-
-<img src="https://cdn.simpleicons.org/nextdotjs" height="42" alt="Next.js" />
-<img src="https://cdn.simpleicons.org/react" height="42" alt="React" />
-<img src="https://cdn.simpleicons.org/react" height="42" alt="React DOM" />
-<img src="https://cdn.simpleicons.org/betterauth" height="42" alt="Better Auth" />
-<img src="https://cdn.simpleicons.org/heroui" height="42" alt="HeroUI" />
-<img src="https://cdn.simpleicons.org/tailwindcss" height="42" alt="Tailwind CSS" />
-<img src="https://cdn.simpleicons.org/framer" height="42" alt="Framer Motion" />
-<img src="https://cdn.simpleicons.org/framer" height="42" alt="Motion" />
-<img src="https://cdn.simpleicons.org/lucide" height="42" alt="Lucide React" />
-<img src="https://cdn.simpleicons.org/react" height="42" alt="React Icons" />
-<img src="https://cdn.simpleicons.org/react" height="42" alt="React Hot Toast" />
-
-</p>
-
-<p align="center">
-  Next.js • React • React DOM • Better Auth • HeroUI • Tailwind CSS • Framer Motion • Motion • Lucide React • React Icons • React Hot Toast
-</p>
-
 ```text
 next
 react
@@ -753,49 +733,6 @@ react-hot-toast
 
 ## ⚙️ Backend Dependencies
 
-<p align="center">
-
-<img src="https://cdn.simpleicons.org/nodedotjs" height="42" alt="Node.js" />
-<img src="https://cdn.simpleicons.org/express" height="42" alt="Express.js" />
-<img src="https://cdn.simpleicons.org/mongodb" height="42" alt="MongoDB" />
-<img src="https://cdn.simpleicons.org/betterauth" height="42" alt="Better Auth" />
-<img src="https://cdn.simpleicons.org/cors" height="42" alt="CORS" />
-<img src="https://cdn.simpleicons.org/dotenv" height="42" alt="dotenv" />
-
-</p>
-
-<p align="center">
-  Express • MongoDB • Better Auth • CORS • dotenv
-</p>
-
-```text
-express
-mongodb
-better-auth
-cors
-dotenv
-```
-
-
-
-## Frontend
-
-```text
-next
-react
-react-dom
-better-auth
-@heroui/react
-tailwindcss
-framer-motion
-motion
-lucide-react
-react-icons
-react-hot-toast
-```
-
-## Backend
-
 ```text
 express
 mongodb
@@ -806,7 +743,6 @@ dotenv
 
 > The exact dependency versions may change as the project evolves. Please check each repository's `package.json` for the latest installed versions.
 
----
 
 # 🚀 Deployment
 
