@@ -51,6 +51,12 @@ const IdeaFilters = ({ filters, setFilters, onSearch }) => {
     });
   };
 
+  // FORM SUBMIT 
+  const handleSubmit = (e) => {
+     e.preventDefault(); 
+     handleSearch(); 
+    };
+
   // RESET
   const handleReset = () => {
     setFilters(DEFAULT_FILTERS);
@@ -58,7 +64,9 @@ const IdeaFilters = ({ filters, setFilters, onSearch }) => {
   };
 
   return (
-    <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5 dark:border-slate-800 dark:bg-slate-900">
+    <form
+    onSubmit={handleSubmit}
+    className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5 dark:border-slate-800 dark:bg-slate-900">
       {/* ================= HEADER ================= */}
       <div className="mb-5 flex items-center gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-cyan-400">
@@ -188,7 +196,7 @@ const IdeaFilters = ({ filters, setFilters, onSearch }) => {
 
         {/* SEARCH */}
         <button
-          type="button"
+          type="submit"
           onClick={handleSearch}
           className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 text-sm font-bold text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 dark:bg-blue-500 dark:hover:bg-blue-600"
         >
@@ -196,7 +204,7 @@ const IdeaFilters = ({ filters, setFilters, onSearch }) => {
           Search Ideas
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
