@@ -1,5 +1,5 @@
-import RegisterForm from '@/components/auth/RegisterForm';
-import React from 'react';
+import RegisterForm from "@/components/auth/RegisterForm";
+import React, { Suspense } from "react";
 
 export const metadata = {
   title: "Create Account",
@@ -8,11 +8,13 @@ export const metadata = {
 };
 
 const RegisterPage = () => {
-    return (
-        <div>
-            <RegisterForm />
-        </div>
-    );
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <RegisterForm />
+      </Suspense>
+    </div>
+  );
 };
 
 export default RegisterPage;
