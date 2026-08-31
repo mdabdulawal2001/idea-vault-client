@@ -1021,7 +1021,9 @@ Possible future improvements include:
 
 # ⭐ Support
 
+<p align="center">
 If you like this project, consider giving the repositories a ⭐ **Star** on GitHub.
+</p>
 
 <p align="center">
   <b>Thanks for visiting IdeaVault! 🚀</b>
