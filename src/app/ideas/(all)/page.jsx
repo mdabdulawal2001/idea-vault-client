@@ -10,6 +10,7 @@ export const metadata = {
 const IdeasPage = () => {
   return (
     <main>
+      
       <IdeasAllCards />
     </main>
   );
