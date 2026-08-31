@@ -1,5 +1,7 @@
 import LoginForm from "@/components/auth/LoginForm";
 import { Suspense } from "react";
+import loading from "./loading";
+
 
 export const metadata = {
   title: "Login",
@@ -9,7 +11,7 @@ export const metadata = {
 
 const LoginPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={loading}>
       <LoginForm />
     </Suspense>
   );
